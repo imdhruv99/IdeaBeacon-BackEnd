@@ -1,0 +1,31 @@
+services:
+  mongo:
+    image: mongo:latest
+    name: mongodb
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mongo-network
+
+  mongo-express:
+    image: mongo-express:latest
+    name: mongo-express
+    container_name: mongo-express
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+    networks:
+      - mongo-network
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  mongo-network:
+    driver: bridge
