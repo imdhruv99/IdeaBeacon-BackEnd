@@ -1,6 +1,6 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const logger = require('./utils/logger');
+import express from 'express';
+import connectDB from './config/db.js';
+import logger from './utils/logger.js';
 
 const app = express();
 
@@ -15,4 +15,4 @@ connectDB().then(() => {
 // Init Middleware
 app.use(express.json());
 
-module.exports = app;
+export default app;

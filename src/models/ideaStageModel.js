@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ideaStageSchema = new mongoose.Schema({
     stageId: { type: String, required: true, unique: true },
@@ -9,4 +9,4 @@ const ideaStageSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('IdeaStage', ideaStageSchema);
+export default mongoose.model('IdeaStage', ideaStageSchema);

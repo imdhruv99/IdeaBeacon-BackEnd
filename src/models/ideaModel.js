@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ideaSchema = new mongoose.Schema({
     ideaId: { type: String, required: true, unique: true },
@@ -21,4 +21,4 @@ const ideaSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Idea', ideaSchema);
+export default mongoose.model('Idea', ideaSchema);

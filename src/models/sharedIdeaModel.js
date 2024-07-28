@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const sharedIdeaSchema = new mongoose.Schema({
     sharedIdeaId: { type: String, required: true, unique: true },
@@ -11,4 +11,4 @@ const sharedIdeaSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('SharedIdea', sharedIdeaSchema);
+export default mongoose.model('SharedIdea', sharedIdeaSchema);

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const functionSchema = new mongoose.Schema({
     functionId: { type: String, required: true, unique: true },
@@ -9,4 +9,4 @@ const functionSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Function', functionSchema);
+export default mongoose.model('Function', functionSchema);

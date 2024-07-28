@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const subdivisionSchema = new mongoose.Schema({
     subdivisionId: { type: String, required: true, unique: true },
@@ -10,4 +10,4 @@ const subdivisionSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Subdivision', subdivisionSchema);
+export default mongoose.model('Subdivision', subdivisionSchema);

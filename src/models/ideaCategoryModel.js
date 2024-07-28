@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ideaCategorySchema = new mongoose.Schema({
     categoryId: { type: String, required: true, unique: true },
@@ -9,4 +9,4 @@ const ideaCategorySchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('IdeaCategory', ideaCategorySchema);
+export default mongoose.model('IdeaCategory', ideaCategorySchema);

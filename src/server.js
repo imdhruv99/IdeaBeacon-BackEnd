@@ -1,6 +1,6 @@
-const app = require('./app');
-const dotenv = require('dotenv');
-const logger = require('./utils/logger');
+import app from './app.js';
+import dotenv from 'dotenv';
+import logger from './utils/logger.js';
 
 dotenv.config();
 
