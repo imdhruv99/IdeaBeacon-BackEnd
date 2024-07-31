@@ -1,7 +1,4 @@
 import mongoose from 'mongoose';
-import AutoIncrementFactory from 'mongoose-sequence';
-
-const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const roleSchema = new mongoose.Schema({
     roleName: { type: String, unique: true },
@@ -10,6 +7,5 @@ const roleSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-roleSchema.plugin(AutoIncrement, { inc_field: 'roleId' });
 
 export default mongoose.model('User', roleSchema);
