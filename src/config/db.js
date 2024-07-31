@@ -6,13 +6,7 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        const mongoURI = process.env.MONGO_URI; 
-
-        if (!mongoURI) {
-            throw new Error('MONGO_URI is not defined in .env file');
-        }
-
-        await mongoose.connect(mongoURI);
+        await mongoose.connect(process.env.MONGO_URI);
         logger.info('MongoDB Connected');
 
         // Initialize models to create collections
@@ -24,6 +18,7 @@ const connectDB = async () => {
         await import('../models/sharedIdeaModel.js');
         await import('../models/ideaModel.js');
         await import('../models/auditLogModel.js');
+        await import('../models/roleModel.js');
 
         logger.info('Collections are created if not existing');
     } catch (error) {

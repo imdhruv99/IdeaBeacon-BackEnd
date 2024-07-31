@@ -39,3 +39,4 @@ volumes:
 networks:
   mongo-network:
     driver: bridge
+    name: mongo_network
