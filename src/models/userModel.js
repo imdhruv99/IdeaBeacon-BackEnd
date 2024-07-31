@@ -1,12 +1,9 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-    userId: { type: String, required: true, unique: true },
-    azureId: { type: String, unique: true },
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    createdBy: { type: String, required: true },
-    updatedBy: { type: String, required: true },
+    azureId: { type: String, unique: true }, // user.oid
+    name: { type: String, required: true }, // user.displayName
+    preferredUsername: { type: String, required: true, unique: true }, // user._json.preferred_username
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
