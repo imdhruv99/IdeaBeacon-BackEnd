@@ -18,14 +18,18 @@
   },
   "homepage": "https://github.com/imdhruv99/IdeaBeacon-BackEnd#readme",
   "dependencies": {
+    "@azure/logger": "^1.1.3",
+    "@azure/msal-node": "^2.12.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "ideabeacon-backend": "file:",
     "mongoose": "^8.5.1",
-<<<<<<< HEAD
-    "mongoose-sequence": "^6.0.1",
-=======
->>>>>>> 2c285498c5bb187e60af4db73296cad2bd86fda6
+    "morgan": "^1.10.0",
+    "openid-client": "^5.6.5",
+    "passport": "^0.7.0",
+    "passport-azure-ad": "^4.3.5",
     "winston": "^3.13.1"
   },
   "type": "module"

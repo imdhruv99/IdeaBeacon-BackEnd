@@ -1,10 +1,12 @@
-import { User } from '../../models/userModel.js';
+import User from '../../models/userModel.js';
+import logger from '../../utils/logger.js';
+
 
 // find by oid
 export const findByOid = async (oid) => {
     logger.info(`Fetching record for user ${oid}`);
     try {
-      return await User.findByOid({ oid: oid });
+      return await User.findOne({ oid: oid });
     } catch (err) {
       logger.error(`Error fetching record for user ${oid}: ${err}`);
       throw err;
