@@ -6,8 +6,6 @@ import { findByOid, saveUser } from "../user/service.js";
 import logger from "../../utils/logger.js";
 
 const authRouter = Router();
-
-// authRouter.get(
 //     "/login",
 //     authPassport.authenticate("azuread-openidconnect", {
 //         session: false,
@@ -75,8 +73,8 @@ authRouter.get('/login', (req, res) => {
             res.redirect(response);
         })
         .catch((error) => {
-            console.error('Error during login:', error.message);
-            res.status(500).send("Error during login");
+            logger.error('Error during login:', error.message);
+            res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Error during login");
         });
 });
 
@@ -104,15 +102,13 @@ authRouter.get('/callback', async (req, res) => {
             role: '66ab0d56e27786913f340a8b'
         };
         const isUser = await findByOid(profile.oid);
-        console.log(isUser);
         if (!isUser) {
             saveUser(profile);
         }
-        res.json({ token: jwtToken, userInfo: profile});
+        res.json({ token: jwtToken, userInfo: profile, status: HttpStatusCodes.OK});
     } catch (error) {
-        console.log(error)
-        console.error('Error during token acquisition:', error.message);
-        res.status(500).send('Error during token acquisition');
+        logger.error('Error during token acquisition:', error.message);
+        res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send('Error during token acquisition');
     }
 });
 

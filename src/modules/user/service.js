@@ -25,4 +25,3 @@ try {
     throw err;
 }
 };
-

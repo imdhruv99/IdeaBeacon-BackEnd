@@ -11,4 +11,4 @@ export const HttpStatusCodes = {
     INTERNAL_SERVER_ERROR: { code: 500, text: "Something Went Wrong! Please try again after sometime." },
     SEVER_NOT_AVAILABLE: { code: 503, text: "Service Not Available" },
     CONNECTIONABORTED: { code: 503, text: "ECONNABORTED" },
-  };
+};
