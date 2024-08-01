@@ -6,57 +6,6 @@ import { findByOid, saveUser } from "../user/service.js";
 import logger from "../../utils/logger.js";
 
 const authRouter = Router();
-//     "/login",
-//     authPassport.authenticate("azuread-openidconnect", {
-//         session: false,
-//         failureRedirect: "/",
-//     })
-// );
-
-// authRouter.get(
-//     "/callback",
-//     authPassport.authenticate("azuread-openidconnect", {
-//         session: false,
-//         failureRedirect: "/",
-//     }),
-//     (req, res) => {
-//         // Generate JWT token
-//         const token = jwt.sign({ 
-//             oid: req.user.oid,
-//             name: req.user.displayName,
-//             email: req.user._json.preferred_username
-//         }, JWT_SECRET, { expiresIn: '1h' });
-
-//         // Send token to frontend
-//         res.json({ token: token,  code: HttpStatusCodes.OK });
-//     }
-// );
-
-// authRouter.post(
-//     "/callback",
-//     authPassport.authenticate("azuread-openidconnect", {
-//         session: false,
-//         failureRedirect: "/",
-//     }),
-//     (req, res) => {
-//         // Generate JWT token
-//         const token = jwt.sign({ 
-//             oid: req.user.oid,
-//             name: req.user.displayName,
-//             email: req.user._json.preferred_username
-//         }, JWT_SECRET, { expiresIn: '1h' });
-
-//         // Send token to frontend
-//         res.json({ token: token,  code: HttpStatusCodes.OK });
-//     }
-// );
-
-
-// authRouter.get("/logout", (req, res) => {
-//     // For JWT, we don't need to destroy a session
-//     // The frontend should remove the token from storage
-//     res.json({ message: "Logged out successfully", code: HttpStatusCodes.OK });
-// });
 
 const cca = new ConfidentialClientApplication(authPassport);
 
