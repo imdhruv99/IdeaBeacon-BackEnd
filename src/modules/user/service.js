@@ -11,15 +11,13 @@ export const findByOid = async (oid) => {
       logger.error(`Error fetching record for user ${oid}: ${err}`);
       throw err;
     }
-  };
+};
 
 // save user
-export const saveUser = async (userData) => {
+export const createUser = async (userData) => {
 logger.info(`Saving user ${userData.oid}`);
 try {
-    const user = new User(userData);
-    const savedUser = await user.save();
-    return savedUser;
+    return User.create(userData);
 } catch (err) {
     logger.error(`Error saving user ${userData.oid}: ${err}`);
     throw err;

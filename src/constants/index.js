@@ -12,3 +12,11 @@ export const HttpStatusCodes = {
     SEVER_NOT_AVAILABLE: { code: 503, text: "Service Not Available" },
     CONNECTIONABORTED: { code: 503, text: "ECONNABORTED" },
 };
+
+export const responseStrings = {
+    missingAuthorization: "Missing Authorization Header",
+    invalidToken: "Token is invalid",
+    unsupportedAuthType: "authentication type is not supported",
+    createIdeaErrorMessage: "Can not create idea",
+    createIdeaSuccessMessage: "Idea created successfully"
+}

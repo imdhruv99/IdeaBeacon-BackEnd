@@ -14,3 +14,8 @@ export const isEmpty = (data) => {
   }
   return false;
 };
+
+
+export const exceptionHandler = (message, error) => {
+  throw new Error(message);
+}

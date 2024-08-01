@@ -1,11 +1,10 @@
 import express from "express";
 import authRouter from "../modules/auth/routes.js";
+import { authenticate } from "../modules/common/middleware.js";
+import ideaRouter from "../modules/idea/route.js";
 
 const router = express.Router();
 
-// idea routes
-// router.use("/idea/v1/", ideaRoutes);
-router.use("/auth/v1", authRouter);
 
 // Health route
 router.get("/health-check/liveness", async (req, res) => {
@@ -16,5 +15,10 @@ router.get("/health-check/liveness", async (req, res) => {
     };
     res.json({ message: "Welcome to ideaBeacon application.", healthcheck });
 });
+router.use("/auth/v1", authRouter);
+
+// the route above this line does not need authentication to access them
+router.use(authenticate);
+router.use("/idea/v1/", ideaRouter);
 
 export default router;

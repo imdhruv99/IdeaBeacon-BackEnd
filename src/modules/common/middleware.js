@@ -1,49 +1,63 @@
 import jwt from 'jsonwebtoken';
-import { isEmpty } from '../../utils/utils.js';
-import { HttpStatusCodes } from "../../constants/index.js";
-import dotenv from dotenv;
+import jwksClient from 'jwks-rsa';
+import dotenv from 'dotenv';
+import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 
 dotenv.config();
 
-const allowedAPIs = [
-  "/api/ideabeacon/health-check/liveness",
-  "/api/ideabeacon/auth/v1/login",
-];
+const JWT_ISSUER = `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/v2.0`;
+const JWT_AUDIENCE = process.env.AZURE_CLIENT_ID;
 
-const JWT_SECRET = process.env.JWT_SECRET 
+// Create a JWKS client
+const client = jwksClient({
+  jwksUri: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}/discovery/v2.0/keys`
+});
 
-export const authenticate = async (req, res, next) => {
-  // Check if the requested URL is in the allowed APIs list
-  if (allowedAPIs.indexOf(req.url) !== -1) {
-      return next();
-  }
+// Function to get the signing key for the JWT
+const getKey = (header, callback) => {
+  client.getSigningKey(header.kid, (err, key) => {
+    if (err) {
+      callback(err);
+    } else {
+      const signingKey = key.getPublicKey();
+      callback(null, signingKey);
+    }
+  });
+};
 
+// Middleware to authenticate requests
+export const authenticate = (req, res, next) => {
   // Check if Authorization header is present and properly formatted
-  if (isEmpty(req.headers.authorization) || req.headers.authorization.indexOf(" ") === -1) {
-      return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
-          status: false,
-          message: responseStrings.missingAuthorization,
-      });
+  if (!req.headers.authorization || req.headers.authorization.indexOf(" ") === -1) {
+    return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
+      status: false,
+      message: responseStrings.missingAuthorization,
+    });
   }
 
   const [authType, token] = req.headers.authorization.split(" ");
 
   if (authType.toLowerCase() === 'bearer') {
-      // JWT authentication
-      try {
-          const decoded = jwt.verify(token, JWT_SECRET);
-          req.user = decoded;
-          return next();
-      } catch (err) {
-          return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
-              status: false,
-              message: responseStrings.invalidToken,
-          });
-      }
-  } else {
-      return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
+    jwt.verify(token, getKey, {
+      issuer: JWT_ISSUER,
+      audience: JWT_AUDIENCE,
+      algorithms: ['RS256']
+    }, (err, decoded) => {
+      if (err) {
+        return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
           status: false,
-          message: responseStrings.unsupportedAuthType,
-      });
+          message: responseStrings.invalidToken,
+        });
+      }
+
+      req.user = decoded;
+      // console.log("--->", req.user);
+      next();
+    });
+  } else {
+    return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
+      status: false,
+      message: responseStrings.unsupportedAuthType,
+    });
   }
 };

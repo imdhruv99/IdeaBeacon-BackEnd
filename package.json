@@ -24,6 +24,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "ideabeacon-backend": "file:",
+    "jwks-rsa": "^3.1.0",
     "mongoose": "^8.5.1",
     "morgan": "^1.10.0",
     "winston": "^3.13.1"
