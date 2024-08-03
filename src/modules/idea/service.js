@@ -68,7 +68,7 @@ export const filteredIdeas = async (query) => {
   try {
     return await Idea.find(query);
   } catch (err) {
-    logger.error(`Error fetching ideas: ${err}`);
+    logger.error(`Error fetching filtered ideas: ${err}`);
     throw err;
   }
 };
