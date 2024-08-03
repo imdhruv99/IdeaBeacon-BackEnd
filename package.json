@@ -18,9 +18,15 @@
   },
   "homepage": "https://github.com/imdhruv99/IdeaBeacon-BackEnd#readme",
   "dependencies": {
+    "@azure/msal-node": "^2.12.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "ideabeacon-backend": "file:",
+    "jwks-rsa": "^3.1.0",
     "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
     "winston": "^3.13.1"
   },
   "type": "module"
