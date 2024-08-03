@@ -3,6 +3,9 @@ import { ConfidentialClientApplication } from '@azure/msal-node';
 import authPassport from "./auth.js";
 import { findByOid, createUser } from "../user/service.js";
 import logger from "../../utils/logger.js";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const cca = new ConfidentialClientApplication(authPassport);
 
@@ -46,7 +49,7 @@ export const callbackController = async (req, res) => {
             preferredUsername: response.idTokenClaims.preferred_username,
             name: response.idTokenClaims.name,
             oid: response.idTokenClaims.oid,
-            role: '66ab0d56e27786913f340a8b'
+            role: process.env.ROLE,
         };
         
         const isUser = await findByOid(profile.oid);
