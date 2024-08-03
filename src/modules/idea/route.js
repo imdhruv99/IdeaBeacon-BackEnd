@@ -8,6 +8,6 @@ ideaRouter.get("/get-all-idea", getAllIdeas); // Read All Ideas
 ideaRouter.get("/get-idea/:id", getIdeaById); // Read Single Idea
 ideaRouter.put("/update-idea/:id", updateIdea); // Update Idea
 ideaRouter.delete("/delete-idea/:id", deleteIdea); // Delete Idea
-ideaRouter.post("/filter", filterIdeas);
+ideaRouter.post("/filter", filterIdeas); // Filter Idea
 
 export default ideaRouter;
