@@ -14,9 +14,9 @@ export const HttpStatusCodes = {
 };
 
 export const responseStrings = {
-    missingAuthorization: "Missing Authorization Header",
-    invalidToken: "Token is invalid",
-    unsupportedAuthType: "authentication type is not supported",
-    createIdeaErrorMessage: "Can not create idea",
-    createIdeaSuccessMessage: "Idea created successfully"
+    missingAuthorization: "Authorization header is missing.",
+    invalidToken: "The provided token is invalid.",
+    unsupportedAuthType: "The authentication type used is not supported.",
+    createIdeaErrorMessage: "An error occurred while trying to create the idea. Please try again later.",
+    createIdeaSuccessMessage: "The idea has been successfully created."
 }
