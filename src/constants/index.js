@@ -19,7 +19,7 @@ export const responseStrings = {
   invalidToken: "The provided token is invalid.",
   unsupportedAuthType: "The authentication type used is not supported.",
 
-  // Middleware Messages
+  // Common Messages
   missingPayload: "Missing values in payload.",
   
   // Idea Messages
@@ -58,16 +58,16 @@ export const responseStrings = {
   deleteCategoryErrorMessage: "An error occurred while trying to delete the category with given id. Please try again later.",
 
 
-  // Funtion Messages
+  // Function Messages
   createFunctionSuccessMessage: "The function has been successfully created.",
   createFunctionErrorMessage: "An error occurred while trying to create the function. Please try again later.",
-  findFunctionByIDError: "Error while fetching function by id.",
-  updateFunctionByIDError: "Error while updating function by id.",
-  deleteFunctionError: "Error while deleting function.",
-  createSubdivisionSuccessMessage: "The subdivision has been successfully created.",
-  createSubdivisionErrorMessage: "An error occurred while trying to create the subdivision. Please try again later.",
-  findSubdivisionByIDError: "Error while fetching subdivision by id.",
-  findAllSubdivisionError: "Error while fetching subdivisions.",
-  updateSubdivisionByIDError: "Error while updating subdivision by id.",
-  deleteSubdivisionError: "Error while deleting subdivision.",
+  getAllFunctionSuccessMessage:  "All Functions has been fetched successfully.",
+  getAllFunctionErrorMessage: "An error occurred while trying to fetch all the Functions. Please try again later.",
+  functionNotFoundErrorMessage: "A Function with given id not Found.",
+  getFunctionByIdSuccessMessage: "A Function with given id has been fetched successfully.",
+  getFunctionByIdErrorMessage: "An error occurred while trying to fetch the function with given id. Please try again later.",
+  updateFunctionSuccessMessage: "A Function with given id has been updated successfully.",
+  updateFunctionErrorMessage: "An error occurred while trying to update the function with given id. Please try again later.",
+  deleteFunctionSuccessMessage: "A Function with given id has been deleted successfully.",
+  deleteFunctionErrorMessage: "An error occurred while trying to delete the function with given id. Please try again later.",
 };

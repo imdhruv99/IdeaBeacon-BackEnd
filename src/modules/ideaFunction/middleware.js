@@ -1,23 +1,41 @@
-import { HttpStatusCodes } from "../../constants/index.js";
+import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
+import logger from "../../utils/logger.js";
 
-export const validateCreateFunctionRequestBody = (req, res, next) => {
-  const { functionName } = req.body;
-
+export const validateBody = async (req, res, next) => {
+  const functionName = req.body;
   if (!functionName) {
-    return res
-      .status(HttpStatusCodes.BAD_REQUEST.code)
-      .json({ error: "Function name is not null/undefiend/empty string" });
+    logger.error("Bad request at category/middlewares.createFunction: Missing or invalid field");
+    return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
+      status: false,
+      message: responseStrings.missingPayload,
+    });
   }
 
   next();
 };
 
-export const validateUpdateFunctionRequestBody = (req, res, next) => {
-  const { functionName } = req.body;
+export const validateRequestBodyToUpdate = async (req, res, next) => {
+  const updateFunction = req.body;
+  const { id } = req.params;
 
-  if (!functionName) {
-    return res.status(HttpStatusCodes.BAD_REQUEST.code).json({ error: `Missing required body param: "functionName"` });
+  if (isEmpty(id) || isEmpty(updateFunction)) {
+    logger.error("Bad request at function/middlewares.update-function");
+    return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
+      status: false,
+      message: responseStrings.missingPayload,
+    });
   }
-
   next();
+};
+export const validateID = async (req, res, next) => {
+  let { id } = req.params;
+  if (isEmpty(id)) {
+    logger.error("Bad request at function/middlewares.get-function-by-id");
+    return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
+      status: false,
+      message: responseStrings.missingPayload,
+    });
+  } else {
+    next();
+  }
 };
