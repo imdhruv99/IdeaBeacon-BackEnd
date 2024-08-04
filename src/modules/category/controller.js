@@ -4,7 +4,7 @@ import logger from "../../utils/logger.js";
 import { findByOid } from "../user/service.js";
 
 // Create Category
-export const createCategory = async (req, res) => {
+export const createCategoryController = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
 
@@ -28,62 +28,62 @@ export const createCategory = async (req, res) => {
 };
 
 // Read All Categories
-export const getAllCategories = async (req, res) => {
+export const getAllCategoriesController = async (req, res) => {
   try {
     const categories = await categoryService.getAllCategories();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: categories });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllCategorySuccessMessage, data: categories });
   } catch (error) {
     logger.error(`Error fetching Categorys: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createCategoryErrorMessage });
+      .json({ status: false, message: responseStrings.getAllCategoryErrorMessage });
   }
 };
 
 // Read Single Category
-export const getCategoryById = async (req, res) => {
+export const getCategoryByIdController = async (req, res) => {
   try {
     const category = await categoryService.getCategoryById(req.params.id);
     if (!category) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Category not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.categoryNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: category });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getCategoryByIdSuccessMessage, data: category });
   } catch (error) {
     logger.error(`Error fetching Category: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.findCategoryByIDError });
+      .json({ status: false, message: responseStrings.getCategoryByIdErrorMessage });
   }
 };
 
 // Update Category
-export const updateCategory = async (req, res) => {
+export const updateCategoryController = async (req, res) => {
   try {
     const updatedCategory = await categoryService.updateCategory(req.params.id, req.body);
     if (!updatedCategory) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Category not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.categoryNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedCategory });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateCategorySuccessMessage, data: updatedCategory });
   } catch (error) {
     logger.error(`Error updating category: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.updateCategoryByIDError });
+      .json({ status: false, message: responseStrings.updateCategoryErrorMessage });
   }
 };
 
 // Delete Category
-export const deleteCategory = async (req, res) => {
+export const deleteCategoryController = async (req, res) => {
   try {
     const deletedCategory = await categoryService.deleteCategory(req.params.id);
     if (!deletedCategory) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Category not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.categoryNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: "Category deleted successfully" });
+    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: responseStrings.deleteCategorySuccessMessage });
   } catch (error) {
     logger.error(`Error deleting category: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.deleteCategoryError });
+      .json({ status: false, message: responseStrings.deleteCategoryErrorMessage });
   }
 };

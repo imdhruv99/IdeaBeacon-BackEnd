@@ -43,11 +43,22 @@ export const responseStrings = {
   findStageByIDError: "Error while fetching stage by id.",
   updateStageByIDError: "Error while updating stage by id.",
   deleteStageError: "Error while deleting stage.",
+  
+  // Category Messages
   createCategorySuccessMessage: "The category has been successfully created.",
   createCategoryErrorMessage: "An error occurred while trying to create the category. Please try again later.",
-  findCategoryByIDError: "Error while fetching category by id.",
-  updateCategoryByIDError: "Error while updating category by id.",
-  deleteCategoryError: "Error while deleting category.",
+  getAllCategorySuccessMessage:  "All Category has been fetched successfully.",
+  getAllCategoryErrorMessage: "An error occurred while trying to fetch all the categories. Please try again later.",
+  categoryNotFoundErrorMessage: "A Category with given id not Found.",
+  getCategoryByIdSuccessMessage: "A Category with given id has been fetched successfully.",
+  getCategoryByIdErrorMessage: "An error occurred while trying to fetch the category with given id. Please try again later.",
+  updateCategorySuccessMessage: "A Category with given id has been updated successfully.",
+  updateCategoryErrorMessage: "An error occurred while trying to update the Category with given id. Please try again later.",
+  deleteCategorySuccessMessage: "A Category with given id has been deleted successfully.",
+  deleteCategoryErrorMessage: "An error occurred while trying to delete the category with given id. Please try again later.",
+
+
+  // Funtion Messages
   createFunctionSuccessMessage: "The function has been successfully created.",
   createFunctionErrorMessage: "An error occurred while trying to create the function. Please try again later.",
   findFunctionByIDError: "Error while fetching function by id.",
