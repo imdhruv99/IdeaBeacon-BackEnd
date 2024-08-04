@@ -3,7 +3,7 @@ import * as stageService from "./service.js";
 import logger from "../../utils/logger.js";
 import { findByOid } from "../user/service.js";
 
-// Create Idea
+// Create Stage
 export const createIdeaStage = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
@@ -27,8 +27,8 @@ export const createIdeaStage = async (req, res) => {
   }
 };
 
-// Read All Ideas
-export const getAllStage = async (req, res) => {
+// Read All Stage
+export const getAllStages = async (req, res) => {
   try {
     const ideas = await stageService.getAllStages();
     res.status(HttpStatusCodes.OK.code).json({ status: true, data: ideas });
