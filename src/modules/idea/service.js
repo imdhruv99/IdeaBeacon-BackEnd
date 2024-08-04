@@ -1,11 +1,22 @@
 import Idea from "../../models/ideaModel.js";
 import logger from "../../utils/logger.js";
+import { saveAuditLog } from "../auditLog/service.js";
 
 // Create Idea
 export const createIdea = async (ideaData) => {
-  logger.info(`Creating idea with title: ${ideaData.title}`);
+  logger.info("Creating idea...");
   try {
-    return await Idea.create(ideaData);
+    let idea = await Idea.create(ideaData);
+    let logData = {
+      eventName: "Idea Created",
+      details: `Idea with name ${idea.title} is created`,
+      ideaId: idea._id,
+      createdBy: idea.createdBy,
+      updatedBy: idea.updatedBy,
+    };
+    await saveAuditLog(logData);
+    logger.info(`Idea with name ${idea.title} is created.`);
+    return idea;
   } catch (err) {
     logger.error(`Error creating idea: ${err}`);
     throw err;
