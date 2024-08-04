@@ -34,4 +34,10 @@ export const responseStrings = {
   findFunctionByIDError: "Error while fetching function by id.",
   updateFunctionByIDError: "Error while updating function by id.",
   deleteFunctionError: "Error while deleting function.",
+  createSubdivisionSuccessMessage: "The subdivision has been successfully created.",
+  createSubdivisionErrorMessage: "An error occurred while trying to create the subdivision. Please try again later.",
+  findSubdivisionByIDError: "Error while fetching subdivision by id.",
+  findAllSubdivisionError: "Error while fetching subdivisions.",
+  updateSubdivisionByIDError: "Error while updating subdivision by id.",
+  deleteSubdivisionError: "Error while deleting subdivision.",
 };
