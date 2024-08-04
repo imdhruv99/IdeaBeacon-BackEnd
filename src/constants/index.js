@@ -29,4 +29,9 @@ export const responseStrings = {
   findCategoryByIDError: "Error while fetching category by id.",
   updateCategoryByIDError: "Error while updating category by id.",
   deleteCategoryError: "Error while deleting category.",
+  createFunctionSuccessMessage: "The function has been successfully created.",
+  createFunctionErrorMessage: "An error occurred while trying to create the function. Please try again later.",
+  findFunctionByIDError: "Error while fetching function by id.",
+  updateFunctionByIDError: "Error while updating function by id.",
+  deleteFunctionError: "Error while deleting function.",
 };

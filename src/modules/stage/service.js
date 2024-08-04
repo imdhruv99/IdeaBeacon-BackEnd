@@ -1,4 +1,4 @@
-import Stage from "../../models/stageStageModel.js";
+import Stage from "../../models/ideaStageModel.js";
 import logger from "../../utils/logger.js";
 
 // Create Stage
