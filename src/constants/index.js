@@ -21,6 +21,13 @@ export const responseStrings = {
 
   // Common Messages
   missingPayload: "Missing values in payload.",
+
+  // User Messages
+  userAlreadyExistErrorMessage: "User already exist in database.",
+  createUserSuccessMessage: "The user has been successfully created.",
+  createUserErrorMessage: "An error occurred while trying to create the user. Please try again later.",
+  getAllUserSuccessMessage: "All Users has been fetched successfully.",
+  getAllUserErrorMessage: "An error occurred while trying to fetch the users. Please try again later.",
   
   // Idea Messages
   createIdeaErrorMessage: "An error occurred while trying to create the idea. Please try again later.",
