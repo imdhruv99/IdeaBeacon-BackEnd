@@ -38,14 +38,20 @@ export const responseStrings = {
   filterIdeaErrorMessage: "An error occurred while trying to fetch the ideas with given filters. Please try again later.",
   
   // Stage Messages
-  createStageSuccessMessage: "The stage has been successfully created.",
+  createStageSuccessMessage: "The Stage has been successfully created.",
   createStageErrorMessage: "An error occurred while trying to create the stage. Please try again later.",
-  findStageByIDError: "Error while fetching stage by id.",
-  updateStageByIDError: "Error while updating stage by id.",
-  deleteStageError: "Error while deleting stage.",
+  getAllStageSuccessMessage:  "All Stages has been fetched successfully.",
+  getAllStageErrorMessage: "An error occurred while trying to fetch all the stages. Please try again later.",
+  stageNotFoundErrorMessage: "A Stage with given id not Found.",
+  getStageByIdSuccessMessage: "A Stage with given id has been fetched successfully.",
+  getStageByIdErrorMessage: "An error occurred while trying to fetch the stage with given id. Please try again later.",
+  updateStageSuccessMessage: "A Stage with given id has been updated successfully.",
+  updateStageErrorMessage: "An error occurred while trying to update the stage with given id. Please try again later.",
+  deleteStageSuccessMessage: "A Stage with given id has been deleted successfully.",
+  deleteStageErrorMessage: "An error occurred while trying to delete the stage with given id. Please try again later.",
   
   // Category Messages
-  createCategorySuccessMessage: "The category has been successfully created.",
+  createCategorySuccessMessage: "The Category has been successfully created.",
   createCategoryErrorMessage: "An error occurred while trying to create the category. Please try again later.",
   getAllCategorySuccessMessage:  "All Category has been fetched successfully.",
   getAllCategoryErrorMessage: "An error occurred while trying to fetch all the categories. Please try again later.",
@@ -59,10 +65,10 @@ export const responseStrings = {
 
 
   // Function Messages
-  createFunctionSuccessMessage: "The function has been successfully created.",
+  createFunctionSuccessMessage: "The Function has been successfully created.",
   createFunctionErrorMessage: "An error occurred while trying to create the function. Please try again later.",
   getAllFunctionSuccessMessage:  "All Functions has been fetched successfully.",
-  getAllFunctionErrorMessage: "An error occurred while trying to fetch all the Functions. Please try again later.",
+  getAllFunctionErrorMessage: "An error occurred while trying to fetch all the functions. Please try again later.",
   functionNotFoundErrorMessage: "A Function with given id not Found.",
   getFunctionByIdSuccessMessage: "A Function with given id has been fetched successfully.",
   getFunctionByIdErrorMessage: "An error occurred while trying to fetch the function with given id. Please try again later.",

@@ -1,13 +1,22 @@
 import { Router } from "express";
-import { createStage, deleteStage, getAllStages, getStageById, updateStage } from "./controller.js";
-import { validateCreateStageRequestBody } from "./middleware.js";
+import { createStageController, deleteStageController, getAllStagesController, getStageByIdController, updateStageController } from "./controller.js";
+import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const stageRouter = Router();
 
-stageRouter.post("/create-stage", validateCreateStageRequestBody, createStage); // Create Stage
-stageRouter.get("/get-all-stage", getAllStages); // Read All Stage
-stageRouter.get("/get-stage/:id", getStageById); // Read Single Stage
-stageRouter.put("/update-stage/:id", updateStage); // Update Stage
-stageRouter.delete("/delete-stage/:id", deleteStage); // Delete Stage
+const createStage = [validateBody, createStageController]
+stageRouter.post("/create-stage", createStage);
+
+const getAllStages = [getAllStagesController]
+stageRouter.get("/get-all-stage", getAllStages);
+
+const getStageById = [validateID, getStageByIdController]
+stageRouter.get("/get-stage/:id", getStageById);
+
+const updateStage = [validateRequestBodyToUpdate, updateStageController]
+stageRouter.put("/update-stage/:id", updateStage);
+
+const deleteStage = [validateID, deleteStageController]
+stageRouter.delete("/delete-stage/:id", deleteStage);
 
 export default stageRouter;

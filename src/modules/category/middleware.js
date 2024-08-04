@@ -1,5 +1,6 @@
 import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import logger from "../../utils/logger.js";
+import { isEmpty } from "../../utils/utils.js";
 
 
 export const validateBody = async (req, res, next) => {
