@@ -89,15 +89,15 @@ export const deleteIdea = async (req, res) => {
 // Read Filtered Ideas
 export const filterIdeas = async (req, res) => {
   try {
-    const { stage, category, author, function: func, subdivision, month, year } = req.body;
+    const { stageId, categoryId, authorId, functionId, subdivisionId, month, year } = req.body;
 
     let query = {};
 
-    if (stage) query.ideaStageId = stage;
-    if (category) query.ideaCategoryId = category;
-    if (author) query.createdBy = author;
-    if (func) query.functionId = func;
-    if (subdivision) query.subdivisionId = subdivision;
+    if (stageId) query.ideaStageId = stageId;
+    if (categoryId) query.ideaCategoryId = categoryId;
+    if (authorId) query.createdBy = authorId;
+    if (functionId) query.functionId = functionId;
+    if (subdivisionId) query.subdivisionId = subdivisionId;
 
     if (month || year) {
       query = {

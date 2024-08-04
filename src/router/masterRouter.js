@@ -2,7 +2,7 @@ import express from "express";
 
 import authRouter from "../modules/auth/routes.js";
 import { authenticate } from "../modules/common/middleware.js";
-import ideaRouter from "../modules/idea/route.js";
+import ideaRouter from "../modules/idea/routes.js";
 import stageRouter from "../modules/stage/routes.js";
 
 const router = express.Router();
