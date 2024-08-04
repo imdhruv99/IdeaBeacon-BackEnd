@@ -32,7 +32,7 @@ export const validateRequestBodyToUpdate = async (req, res, next) => {
 export const validateID = async (req, res, next) => {
   let { id } = req.params;
   if (isEmpty(id)) {
-    logger.error("Bad request at subdivision/middlewares.get-subdivision-by-id");
+    logger.error("Bad request at subdivision/middlewares.get-subdivision-by-id/function-id");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,
       message: responseStrings.missingPayload,

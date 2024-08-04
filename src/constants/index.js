@@ -96,4 +96,6 @@ export const responseStrings = {
     updateSubdivisionErrorMessage: "An error occurred while trying to update the subdivision with given id. Please try again later.",
     deleteSubdivisionSuccessMessage: "A Subdivision with given id has been deleted successfully.",
     deleteSubdivisionErrorMessage: "An error occurred while trying to delete the subdivision with given id. Please try again later.",
+    getSubdivisionByFunctionIdSuccessMessage: "A Subdivisions associated function id has been fetched successfully.",
+    getSubdivisionByFunctionIdErrorMessage: "An error occurred while trying to fetch the subdivisions with given function id. Please try again later."
 };

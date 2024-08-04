@@ -87,3 +87,28 @@ export const deleteSubdivisionController = async (req, res) => {
       .json({ status: false, message: responseStrings.deleteSubdivisionErrorMessage });
   }
 };
+
+// get subdivision by function id
+export const getSubdivisionByFunctionIdController = async (req, res) => {
+  const { functionId } = req.params;
+  try {
+    const subdivision = await subdivisionService.getSubdivisionByFunctionId(functionId);
+    if (!subdivision) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({
+        status: false,
+        message: responseStrings.subdivisionNotFoundErrorMessage,
+      });
+    }
+    res.status(HttpStatusCodes.OK.code).json({
+      status: true,
+      message: responseStrings.getSubdivisionByFunctionIdSuccessMessage,
+      data: subdivision,
+    });
+  } catch (error) {
+    logger.error(`Error fetching subdivision by functionId: ${error.message}`);
+    res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code).json({
+      status: false,
+      message: responseStrings.getSubdivisionByFunctionIdErrorMessage,
+    });
+  }
+};
