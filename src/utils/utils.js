@@ -1,17 +1,25 @@
 export const isEmpty = (data) => {
-  const emptyDataIdentifiers = [null, 0, "", undefined, "undefined", false, "0"];
-  if (emptyDataIdentifiers.includes(typeof data)) {
+  // Check for null or undefined
+  if (data == null) {
     return true;
   }
-  if (emptyDataIdentifiers.includes(data)) {
+
+  // Check for empty string, number 0, or boolean false
+  if (data === "" || data === 0 || data === false) {
     return true;
   }
-  if (typeof data === "object") {
-    const keys = Object.keys(data);
-    if (!keys.length) {
-      return true;
-    }
+
+  // Check if it's an empty array
+  if (Array.isArray(data) && data.length === 0) {
+    return true;
   }
+
+  // Check if it's an empty object
+  if (typeof data === "object" && !Array.isArray(data) && Object.keys(data).length === 0) {
+    return true;
+  }
+
+  // Data is not empty
   return false;
 };
 

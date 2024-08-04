@@ -14,11 +14,30 @@ export const HttpStatusCodes = {
 };
 
 export const responseStrings = {
+  // Auth Messages
   missingAuthorization: "Authorization header is missing.",
   invalidToken: "The provided token is invalid.",
   unsupportedAuthType: "The authentication type used is not supported.",
+
+  // Middleware Messages
+  missingPayload: "Missing values in payload.",
+  
+  // Idea Messages
   createIdeaErrorMessage: "An error occurred while trying to create the idea. Please try again later.",
   createIdeaSuccessMessage: "The idea has been successfully created.",
+  getAllIdeaSuccessMessage: "All Ideas has been fetched successfully.",
+  getAllIdeaErrorMessage: "An error occurred while trying to fetch the ideas. Please try again later.",
+  ideaNotFoundErrorMessage: "An Idea with given id not Found.",
+  getIdeaByIdSuccessMessage: "An Idea with given id has been fetched successfully.",
+  getIdeaByIdErrorMessage: "An error occurred while trying to fetch the idea with given id. Please try again later.",
+  updateIdeaSuccessMessage: "An Idea with given id has been updated successfully.",
+  updateIdeaErrorMessage: "An error occurred while trying to update the idea with given id. Please try again later.",
+  deleteIdeaSuccessMessage: "An Idea with given id has been deleted successfully.",
+  deleteIdeaErrorMessage: "An error occurred while trying to delete the idea with given id. Please try again later.",
+  filterIdeaSuccessMessage: "All Ideas according to applied filters has been fetched successfully.",
+  filterIdeaErrorMessage: "An error occurred while trying to fetch the ideas with given filters. Please try again later.",
+  
+  // Stage Messages
   createStageSuccessMessage: "The stage has been successfully created.",
   createStageErrorMessage: "An error occurred while trying to create the stage. Please try again later.",
   findStageByIDError: "Error while fetching stage by id.",

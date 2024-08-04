@@ -4,7 +4,7 @@ import logger from "../../utils/logger.js";
 import { findByOid } from "../user/service.js";
 
 // Create Idea
-export const createIdea = async (req, res) => {
+export const createIdeaController = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
 
@@ -26,68 +26,72 @@ export const createIdea = async (req, res) => {
 };
 
 // Read All Ideas
-export const getAllIdeas = async (req, res) => {
+export const getAllIdeasController = async (req, res) => {
   try {
     const ideas = await ideaService.getAllIdeas();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: ideas });
+    res.status(HttpStatusCodes.OK.code).json({ status: true,  message: responseStrings.getAllIdeaSuccessMessage, data: ideas });
   } catch (error) {
     logger.error(`Error fetching ideas: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createIdeaErrorMessage });
+      .json({ status: false, message: responseStrings.getAllIdeaErrorMessage });
   }
 };
 
 // Read Single Idea
-export const getIdeaById = async (req, res) => {
+export const getIdeaByIdController = async (req, res) => {
   try {
     const idea = await ideaService.getIdeaById(req.params.id);
     if (!idea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: idea });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getIdeaByIdSuccessMessage, data: idea });
   } catch (error) {
     logger.error(`Error fetching idea: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createIdeaErrorMessage });
+      .json({ status: false, message: responseStrings.getIdeaByIdErrorMessage });
   }
 };
 
 // Update Idea
-export const updateIdea = async (req, res) => {
+export const updateIdeaController = async (req, res) => {
   try {
-    const updatedIdea = await ideaService.updateIdea(req.params.id, req.body);
+    const userId = await findByOid(req.user.oid);
+    const updatedIdea = await ideaService.updateIdea(req.params.id, req.body, userId);
     if (!updatedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedIdea });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateIdeaSuccessMessage, data: updatedIdea });
   } catch (error) {
     logger.error(`Error updating idea: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createIdeaErrorMessage });
+      .json({ status: false, message: responseStrings.updateIdeaErrorMessage });
   }
 };
 
 // Delete Idea
-export const deleteIdea = async (req, res) => {
+export const deleteIdeaController = async (req, res) => {
   try {
-    const deletedIdea = await ideaService.deleteIdea(req.params.id);
-    if (!deletedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+    const ideaId = req.params.id;
+    const userId = await findByOid(req.user.oid);
+
+    const updatedIdea = await ideaService.softDeleteIdea(ideaId, userId);
+    if (!updatedIdea) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: "Idea deleted successfully" });
+    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: responseStrings.deleteIdeaSuccessMessage });
   } catch (error) {
     logger.error(`Error deleting idea: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createIdeaErrorMessage });
+      .json({ status: false, message: responseStrings.deleteIdeaErrorMessage });
   }
 };
 
 // Read Filtered Ideas
-export const filterIdeas = async (req, res) => {
+export const filterIdeasController = async (req, res) => {
   try {
     const { stageId, categoryId, authorId, functionId, subdivisionId, month, year } = req.body;
 
@@ -113,11 +117,11 @@ export const filterIdeas = async (req, res) => {
 
     // Fetch data from the "ideas" collection
     const ideas = await ideaService.filteredIdeas(query);
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: ideas });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.filterIdeaSuccessMessage, data: ideas });
   } catch (error) {
     logger.error(`Error deleting idea: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createIdeaErrorMessage });
+      .json({ status: false, message: responseStrings.filterIdeaErrorMessage });
   }
 };
