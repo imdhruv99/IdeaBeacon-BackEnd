@@ -1,9 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const functionSchema = new mongoose.Schema({
+const functionSchema = new mongoose.Schema(
+  {
     functionName: { type: String, required: true },
-    createdBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },
-    updatedBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },
-}, { timestamps: true });
+    createdBy: { type: mongoose.Schema.ObjectId, required: true, ref: "User" },
+    updatedBy: { type: mongoose.Schema.ObjectId, required: true, ref: "User" },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('Function', functionSchema);
+const Function = mongoose.model("Function", functionSchema);
+export default Function;
