@@ -27,8 +27,43 @@ const getKey = (header, callback) => {
 
 // Middleware to authenticate requests
 // This code is used for Backend Token validation
-// export const authenticateBackend = (req, res, next) => {
-// };
+/*
+export const authenticate = (req, res, next) => {
+  // Check if Authorization header is present and properly formatted
+  if (!req.headers.authorization || req.headers.authorization.indexOf(" ") === -1) {
+    return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
+      status: false,
+      message: responseStrings.missingAuthorization,
+    });
+  }
+
+  const [authType, token] = req.headers.authorization.split(" ");
+
+  if (authType.toLowerCase() === 'bearer') {
+    jwt.verify(token, getKey, {
+      issuer: JWT_ISSUER,
+      audience: JWT_AUDIENCE,
+      algorithms: ['RS256']
+    }, (err, decoded) => {
+      if (err) {
+        return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
+          status: false,
+          message: responseStrings.invalidToken,
+        });
+      }
+
+      req.user = decoded;
+      // console.log("--->", req.user);
+      next();
+    });
+  } else {
+    return res.status(HttpStatusCodes.UNAUTHORIZED.code).json({
+      status: false,
+      message: responseStrings.unsupportedAuthType,
+    });
+  }
+};
+*/
 
 // Middleware to authenticate requests
 export const authenticate = (req, res, next) => {
