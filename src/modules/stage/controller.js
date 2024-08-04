@@ -4,7 +4,7 @@ import logger from "../../utils/logger.js";
 import { findByOid } from "../user/service.js";
 
 // Create Stage
-export const createIdeaStage = async (req, res) => {
+export const createStage = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
 
@@ -20,34 +20,34 @@ export const createIdeaStage = async (req, res) => {
       .status(HttpStatusCodes.CREATED.code)
       .json({ status: true, message: responseStrings.createStageSuccessMessage, data: createdStage });
   } catch (error) {
-    logger.error(`Error creating idea stage: ${error.message}`);
+    logger.error(`Error creating stage stage: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.createStageErrorMessage });
   }
 };
 
-// Read All Stage
+// Read All Stages
 export const getAllStages = async (req, res) => {
   try {
-    const ideas = await stageService.getAllStages();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: ideas });
+    const stages = await stageService.getAllStages();
+    res.status(HttpStatusCodes.OK.code).json({ status: true, data: stages });
   } catch (error) {
     logger.error(`Error fetching stages: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createIdeaErrorMessage });
+      .json({ status: false, message: responseStrings.createstageErrorMessage });
   }
 };
 
-// Read Single Idea
+// Read Single Stage
 export const getStageById = async (req, res) => {
   try {
-    const idea = await stageService.getStageById(req.params.id);
-    if (!idea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+    const stage = await stageService.getStageById(req.params.id);
+    if (!stage) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "stage not found" });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: idea });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, data: stage });
   } catch (error) {
     logger.error(`Error fetching stage: ${error.message}`);
     res
@@ -59,13 +59,13 @@ export const getStageById = async (req, res) => {
 // Update Stage
 export const updateStage = async (req, res) => {
   try {
-    const updatedIdea = await stageService.updateStage(req.params.id, req.body);
-    if (!updatedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+    const updatedStage = await stageService.updateStage(req.params.id, req.body);
+    if (!updatedStage) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "stage not found" });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedIdea });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedStage });
   } catch (error) {
-    logger.error(`Error updating idea: ${error.message}`);
+    logger.error(`Error updating stage: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.updateStageByIDError });
@@ -75,13 +75,13 @@ export const updateStage = async (req, res) => {
 // Delete Stage
 export const deleteStage = async (req, res) => {
   try {
-    const deletedIdea = await stageService.deleteStage(req.params.id);
-    if (!deletedIdea) {
+    const deletedStage = await stageService.deleteStage(req.params.id);
+    if (!deletedStage) {
       return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Stage not found" });
     }
     res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: "Stage deleted successfully" });
   } catch (error) {
-    logger.error(`Error deleting idea: ${error.message}`);
+    logger.error(`Error deleting stage: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.deleteStageError });

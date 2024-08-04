@@ -4,6 +4,7 @@ import authRouter from "../modules/auth/routes.js";
 import { authenticate } from "../modules/common/middleware.js";
 import ideaRouter from "../modules/idea/routes.js";
 import stageRouter from "../modules/stage/routes.js";
+import categoryRouter from "../modules/category/routes.js";
 
 const router = express.Router();
 
@@ -21,6 +22,7 @@ router.use("/auth/v1", authRouter);
 // the route above this line does not need authentication to access them
 router.use(authenticate);
 router.use("/idea/v1/", ideaRouter);
-router.use("/idea/v1/", stageRouter);
+router.use("/stage/v1/", stageRouter);
+router.use("/category/v1/", categoryRouter);
 
 export default router;
