@@ -18,6 +18,7 @@ const ideaSchema = new mongoose.Schema({
     updatedBy: { type:  mongoose.Schema.ObjectId, required: true, ref: 'User' },
     deletedAT: {type: Date},
     deletedBy: { type:  mongoose.Schema.ObjectId, ref: 'User' },
+    isActive: {type: Boolean, default: true},
 }, { timestamps: true });
 
 const Idea = mongoose.model('Idea', ideaSchema);

@@ -1,13 +1,22 @@
 import { Router } from "express";
-import { createCategory, deleteCategory, getAllCategories, getCategoryById, updateCategory } from "./controller.js";
-import { validateCreateCategoryRequestBody, validateUpdateCategoryRequestBody } from "./middleware.js";
+import { createCategoryController, deleteCategoryController, getAllCategoriesController, getCategoryByIdController, updateCategoryController } from "./controller.js";
+import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const categoryRouter = Router();
 
-categoryRouter.post("/create-category", validateCreateCategoryRequestBody, createCategory); // Create Stage
-categoryRouter.get("/get-all-category", getAllCategories); // Read All Stage
-categoryRouter.get("/get-category/:id", getCategoryById); // Read Single Stage
-categoryRouter.put("/update-category/:id", validateUpdateCategoryRequestBody, updateCategory); // Update Stage
-categoryRouter.delete("/delete-category/:id", deleteCategory); // Delete Stage
+const createCategory = [validateBody, createCategoryController]
+categoryRouter.post("/create-category", createCategory);
+
+const getAllCategories = [getAllCategoriesController]
+categoryRouter.get("/get-all-category", getAllCategories); 
+
+const getCategoryById = [validateID, getCategoryByIdController]
+categoryRouter.get("/get-category/:id", getCategoryById);
+
+const updateCategory = [validateRequestBodyToUpdate, updateCategoryController ]
+categoryRouter.put("/update-category/:id", updateCategory);
+
+const deleteCategory = [validateID, deleteCategoryController]
+categoryRouter.delete("/delete-category/:id", deleteCategory);
 
 export default categoryRouter;

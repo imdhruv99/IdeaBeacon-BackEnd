@@ -1,13 +1,22 @@
 import { Router } from "express";
-import { createFunction, deleteFunction, getAllFunctions, getFunctionById, updateFunction } from "./controller.js";
-import { validateCreateFunctionRequestBody } from "./middleware.js";
+import { createFunctionController, deleteFunctionController, getAllFunctionsController, getFunctionByIdController, updateFunctionController } from "./controller.js";
+import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const functionRouter = Router();
 
-functionRouter.post("/create-function", validateCreateFunctionRequestBody, createFunction); // Create Function
-functionRouter.get("/get-all-function", getAllFunctions); // Read All Function
-functionRouter.get("/get-function/:id", getFunctionById); // Read Single Function
-functionRouter.put("/update-function/:id", updateFunction); // Update Function
-functionRouter.delete("/delete-function/:id", deleteFunction); // Delete Function
+const createFunction = [validateBody, createFunctionController]
+functionRouter.post("/create-function", createFunction);
+
+const getAllFunctions = [getAllFunctionsController]
+functionRouter.get("/get-all-function", getAllFunctions);
+
+const getFunctionById = [validateID, getFunctionByIdController]
+functionRouter.get("/get-function/:id", getFunctionById);
+
+const updateFunction = [validateRequestBodyToUpdate, updateFunctionController]
+functionRouter.put("/update-function/:id", updateFunction);
+
+const deleteFunction = [validateID, deleteFunctionController]
+functionRouter.delete("/delete-function/:id", deleteFunction);
 
 export default functionRouter;

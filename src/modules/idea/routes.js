@@ -1,14 +1,25 @@
 import { Router } from "express";
-import { createIdea, getAllIdeas, getIdeaById, updateIdea, deleteIdea, filterIdeas } from "./controller.js";
-import { validateFilterIdeaRequestBody } from "./middleware.js";
+import { createIdeaController, deleteIdeaController, filterIdeasController, getAllIdeasController, getIdeaByIdController, updateIdeaController } from "./controller.js";
+import { validateBody, validateFilterIdeaRequestBody, validateID, validateRequestBodyToUpdate, validateDeleteParam } from "./middleware.js";
 
 const ideaRouter = Router();
 
-ideaRouter.post("/create-idea", createIdea); // Create Idea
-ideaRouter.get("/get-all-idea", getAllIdeas); // Read All Ideas
-ideaRouter.get("/get-idea/:id", getIdeaById); // Read Single Idea
-ideaRouter.put("/update-idea/:id", updateIdea); // Update Idea
-ideaRouter.delete("/delete-idea/:id", deleteIdea); // Delete Idea
-ideaRouter.post("/filter", validateFilterIdeaRequestBody, filterIdeas); // Filter Idea
+const createIdea = [validateBody, createIdeaController]
+ideaRouter.post("/create-idea", createIdea); 
+
+const getAllIdeas = [getAllIdeasController]
+ideaRouter.get("/get-all-idea", getAllIdeas);
+
+const getIdeaById = [validateID, getIdeaByIdController]
+ideaRouter.get("/get-idea/:id", getIdeaById);
+
+const updateIdea = [validateRequestBodyToUpdate, updateIdeaController]
+ideaRouter.put("/update-idea/:id", updateIdea);
+
+const deleteIdea = [validateDeleteParam, deleteIdeaController]
+ideaRouter.delete("/delete-idea/:id", deleteIdea);
+
+const filterIdeas = [validateFilterIdeaRequestBody, filterIdeasController]
+ideaRouter.post("/filter", filterIdeas);
 
 export default ideaRouter;

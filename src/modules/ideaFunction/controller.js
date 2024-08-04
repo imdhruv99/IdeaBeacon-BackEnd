@@ -4,7 +4,7 @@ import logger from "../../utils/logger.js";
 import { findByOid } from "../user/service.js";
 
 // Create Function
-export const createFunction = async (req, res) => {
+export const createFunctionController = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
 
@@ -28,62 +28,62 @@ export const createFunction = async (req, res) => {
 };
 
 // Read All Functions
-export const getAllFunctions = async (req, res) => {
+export const getAllFunctionsController = async (req, res) => {
   try {
     const Functions = await functionService.getAllFunctions();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: Functions });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllFunctionSuccessMessage, data: Functions });
   } catch (error) {
     logger.error(`Error fetching functions: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.createFunctionErrorMessage });
+      .json({ status: false, message: responseStrings.getAllFunctionErrorMessage });
   }
 };
 
 // Read Single Function
-export const getFunctionById = async (req, res) => {
+export const getFunctionByIdController = async (req, res) => {
   try {
     const Function = await functionService.getFunctionById(req.params.id);
     if (!Function) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Function not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.functionNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: Function });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getFunctionByIdSuccessMessage, data: Function });
   } catch (error) {
     logger.error(`Error fetching function: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.findFunctionByIDError });
+      .json({ status: false, message: responseStrings.getFunctionByIdErrorMessage });
   }
 };
 
 // Update Function
-export const updateFunction = async (req, res) => {
+export const updateFunctionController = async (req, res) => {
   try {
     const updatedFunction = await functionService.updateFunction(req.params.id, req.body);
     if (!updatedFunction) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Function not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.functionNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedFunction });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateFunctionSuccessMessage, data: updatedFunction });
   } catch (error) {
     logger.error(`Error updating function: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.updateFunctionByIDError });
+      .json({ status: false, message: responseStrings.updateFunctionErrorMessage });
   }
 };
 
 // Delete Function
-export const deleteFunction = async (req, res) => {
+export const deleteFunctionController = async (req, res) => {
   try {
     const deletedFunction = await functionService.deleteFunction(req.params.id);
     if (!deletedFunction) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Function not found" });
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.functionNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: "Function deleted successfully" });
+    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: responseStrings.deleteFunctionSuccessMessage });
   } catch (error) {
     logger.error(`Error deleting function: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.deleteFunctionError });
+      .json({ status: false, message: responseStrings.deleteFunctionErrorMessage });
   }
 };
