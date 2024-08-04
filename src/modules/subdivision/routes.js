@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createSubdivisionController, deleteSubdivisionController, getAllSubdivisionsController, getSubdivisionByIdController, updateSubdivisionController } from "./controller.js";
+import { createSubdivisionController, deleteSubdivisionController, getAllSubdivisionsController, getSubdivisionByIdController, updateSubdivisionController, getSubdivisionByFunctionIdController } from "./controller.js";
 import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const subdivisionRouter = Router();
@@ -18,5 +18,8 @@ subdivisionRouter.put("/update-subdivision/:id", updateSubdivision);
 
 const deleteSubdivision = [validateID, deleteSubdivisionController]
 subdivisionRouter.delete("/delete-subdivision/:id", deleteSubdivision);
+
+const getSubdivisionByFunctionId = [validateID, getSubdivisionByFunctionIdController]
+subdivisionRouter.get("/get-all-subdivision-by-function-id", getSubdivisionByFunctionId);
 
 export default subdivisionRouter;

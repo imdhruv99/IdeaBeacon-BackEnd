@@ -57,3 +57,14 @@ export const deleteSubdivision = async (id) => {
     throw err;
   }
 };
+
+// get subdivision by function
+export const getSubdivisionByFunctionId = async (functionId) => {
+  logger.info(`Fetching Subdivision with functionId: ${functionId}`);
+  try {
+    return await Subdivision.findOne({ functionId }).populate("subdivisionName createdBy updatedBy");
+  } catch (err) {
+    logger.error(`Error fetching Subdivision: ${err}`);
+    throw err;
+  }
+};
