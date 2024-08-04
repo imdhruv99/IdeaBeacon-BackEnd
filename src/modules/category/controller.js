@@ -20,7 +20,7 @@ export const createCategory = async (req, res) => {
       .status(HttpStatusCodes.CREATED.code)
       .json({ status: true, message: responseStrings.createCategorySuccessMessage, data: createdCategory });
   } catch (error) {
-    logger.error(`Error creating idea Category: ${error.message}`);
+    logger.error(`Error creating category Category: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.createCategoryErrorMessage });
@@ -30,8 +30,8 @@ export const createCategory = async (req, res) => {
 // Read All Categories
 export const getAllCategories = async (req, res) => {
   try {
-    const ideas = await categoryService.getAllCategories();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: ideas });
+    const categories = await categoryService.getAllCategories();
+    res.status(HttpStatusCodes.OK.code).json({ status: true, data: categories });
   } catch (error) {
     logger.error(`Error fetching Categorys: ${error.message}`);
     res
@@ -43,11 +43,11 @@ export const getAllCategories = async (req, res) => {
 // Read Single Category
 export const getCategoryById = async (req, res) => {
   try {
-    const idea = await categoryService.getCategoryById(req.params.id);
-    if (!idea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+    const category = await categoryService.getCategoryById(req.params.id);
+    if (!category) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Category not found" });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: idea });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, data: category });
   } catch (error) {
     logger.error(`Error fetching Category: ${error.message}`);
     res
@@ -59,13 +59,13 @@ export const getCategoryById = async (req, res) => {
 // Update Category
 export const updateCategory = async (req, res) => {
   try {
-    const updatedIdea = await categoryService.updateCategory(req.params.id, req.body);
-    if (!updatedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Idea not found" });
+    const updatedCategory = await categoryService.updateCategory(req.params.id, req.body);
+    if (!updatedCategory) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Category not found" });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedIdea });
+    res.status(HttpStatusCodes.OK.code).json({ status: true, data: updatedCategory });
   } catch (error) {
-    logger.error(`Error updating idea: ${error.message}`);
+    logger.error(`Error updating category: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.updateCategoryByIDError });
@@ -75,13 +75,13 @@ export const updateCategory = async (req, res) => {
 // Delete Category
 export const deleteCategory = async (req, res) => {
   try {
-    const deletedIdea = await categoryService.deleteCategory(req.params.id);
-    if (!deletedIdea) {
+    const deletedCategory = await categoryService.deleteCategory(req.params.id);
+    if (!deletedCategory) {
       return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: "Category not found" });
     }
     res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: "Category deleted successfully" });
   } catch (error) {
-    logger.error(`Error deleting idea: ${error.message}`);
+    logger.error(`Error deleting category: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.deleteCategoryError });

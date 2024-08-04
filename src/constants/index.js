@@ -24,4 +24,9 @@ export const responseStrings = {
   findStageByIDError: "Error while fetching stage by id.",
   updateStageByIDError: "Error while updating stage by id.",
   deleteStageError: "Error while deleting stage.",
+  createCategorySuccessMessage: "The category has been successfully created.",
+  createCategoryErrorMessage: "An error occurred while trying to create the category. Please try again later.",
+  findCategoryByIDError: "Error while fetching category by id.",
+  updateCategoryByIDError: "Error while updating category by id.",
+  deleteCategoryError: "Error while deleting category.",
 };

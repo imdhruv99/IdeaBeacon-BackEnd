@@ -1,20 +1,20 @@
-import Stage from "../../models/ideaStageModel.js";
+import Stage from "../../models/stageStageModel.js";
 import logger from "../../utils/logger.js";
 
-// Create Idea
+// Create Stage
 export const createStage = async (stageData) => {
-  logger.info(`Creating idea with title: ${stageData.stageName}`);
+  logger.info(`Creating stage with title: ${stageData.stageName}`);
   try {
     return await Stage.create(stageData);
   } catch (err) {
-    logger.error(`Error creating idea stage: ${err}`);
+    logger.error(`Error creating stage stage: ${err}`);
     throw err;
   }
 };
 
-// Read All Ideas
+// Read All Stages
 export const getAllStages = async () => {
-  logger.info("Fetching all ideas");
+  logger.info("Fetching all stages");
   try {
     return await Stage.find().populate("stageName createdBy updatedBy");
   } catch (err) {
@@ -35,10 +35,10 @@ export const getStageById = async (id) => {
 };
 
 // Update Stage
-export const updateStage = async (id, ideaData) => {
-  logger.info(`Updating idea with id: ${id}`);
+export const updateStage = async (id, stageData) => {
+  logger.info(`Updating stage with id: ${id}`);
   try {
-    return await Stage.findByIdAndUpdate(id, ideaData, { new: true }).populate("stageName createdBy updatedBy");
+    return await Stage.findByIdAndUpdate(id, stageData, { new: true }).populate("stageName createdBy updatedBy");
   } catch (err) {
     logger.error(`Error updating Stage: ${err}`);
     throw err;
@@ -51,7 +51,7 @@ export const deleteStage = async (id) => {
   try {
     return await Stage.findByIdAndDelete(id);
   } catch (err) {
-    logger.error(`Error deleting idea: ${err}`);
+    logger.error(`Error deleting stage: ${err}`);
     throw err;
   }
 };
