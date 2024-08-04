@@ -4,8 +4,8 @@ import { isEmpty } from "../../utils/utils.js";
 
 
 export const validateBody = async (req, res, next) => {
-  const categoryName = req.body;
-  if (!categoryName) {
+  const createCategory = req.body;
+  if (!createCategory) {
     logger.error("Bad request at category/middlewares.createCategory: Missing or invalid field");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,

@@ -1,19 +1,22 @@
 import { Router } from "express";
-import {
-  createSubdivision,
-  deleteSubdivision,
-  getAllSubdivisions,
-  getSubdivisionById,
-  updateSubdivision,
-} from "./controller.js";
-import { validateCreateSubdivisionRequestBody } from "./middleware.js";
+import { createSubdivisionController, deleteSubdivisionController, getAllSubdivisionsController, getSubdivisionByIdController, updateSubdivisionController } from "./controller.js";
+import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const subdivisionRouter = Router();
 
-subdivisionRouter.post("/create-subdivision", validateCreateSubdivisionRequestBody, createSubdivision); // Create Subdivision
-subdivisionRouter.get("/get-all-subdivision", getAllSubdivisions); // Read All Subdivision
-subdivisionRouter.get("/get-subdivision/:id", getSubdivisionById); // Read Single Subdivision
-subdivisionRouter.put("/update-subdivision/:id", updateSubdivision); // Update Subdivision
-subdivisionRouter.delete("/delete-subdivision/:id", deleteSubdivision); // Delete Subdivision
+const createSubdivision = [validateBody, createSubdivisionController]
+subdivisionRouter.post("/create-subdivision", createSubdivision);
+
+const getAllSubdivisions = [getAllSubdivisionsController]
+subdivisionRouter.get("/get-all-subdivision", getAllSubdivisions);
+
+const getSubdivisionById = [validateID, getSubdivisionByIdController]
+subdivisionRouter.get("/get-subdivision/:id", getSubdivisionById);
+
+const updateSubdivision = [validateRequestBodyToUpdate, updateSubdivisionController]
+subdivisionRouter.put("/update-subdivision/:id", updateSubdivision);
+
+const deleteSubdivision = [validateID, deleteSubdivisionController]
+subdivisionRouter.delete("/delete-subdivision/:id", deleteSubdivision);
 
 export default subdivisionRouter;

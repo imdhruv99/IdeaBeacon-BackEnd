@@ -3,8 +3,8 @@ import logger from "../../utils/logger.js";
 import { isEmpty } from "../../utils/utils.js";
 
 export const validateBody = async (req, res, next) => {
-  const functionName = req.body;
-  if (!functionName) {
+  const createFunction = req.body;
+  if (!createFunction) {
     logger.error("Bad request at function/middlewares.createFunction: Missing or invalid field");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,

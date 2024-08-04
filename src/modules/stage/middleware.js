@@ -3,8 +3,8 @@ import logger from "../../utils/logger.js";
 import { isEmpty } from "../../utils/utils.js";
 
 export const validateBody = async (req, res, next) => {
-  const stageName = req.body;
-  if (!stageName) {
+  const createStage = req.body;
+  if (!createStage) {
     logger.error("Bad request at stage/middlewares.createStage: Missing or invalid field");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,

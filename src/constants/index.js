@@ -76,4 +76,17 @@ export const responseStrings = {
   updateFunctionErrorMessage: "An error occurred while trying to update the function with given id. Please try again later.",
   deleteFunctionSuccessMessage: "A Function with given id has been deleted successfully.",
   deleteFunctionErrorMessage: "An error occurred while trying to delete the function with given id. Please try again later.",
+
+    // Subdivision Messages
+    createSubdivisionSuccessMessage: "The Subdivision has been successfully created.",
+    createSubdivisionErrorMessage: "An error occurred while trying to create the subdivision. Please try again later.",
+    getAllSubdivisionSuccessMessage:  "All Subdivision has been fetched successfully.",
+    getAllSubdivisionErrorMessage: "An error occurred while trying to fetch all the subdivisions. Please try again later.",
+    subdivisionNotFoundErrorMessage: "A Subdivision with given id not Found.",
+    getSubdivisionByIdSuccessMessage: "A Subdivision with given id has been fetched successfully.",
+    getSubdivisionByIdErrorMessage: "An error occurred while trying to fetch the subdivision with given id. Please try again later.",
+    updateSubdivisionSuccessMessage: "A Subdivision with given id has been updated successfully.",
+    updateSubdivisionErrorMessage: "An error occurred while trying to update the subdivision with given id. Please try again later.",
+    deleteSubdivisionSuccessMessage: "A Subdivision with given id has been deleted successfully.",
+    deleteSubdivisionErrorMessage: "An error occurred while trying to delete the subdivision with given id. Please try again later.",
 };
