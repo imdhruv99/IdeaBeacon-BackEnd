@@ -3,6 +3,7 @@ import * as ideaService from "./service.js";
 import logger from "../../utils/logger.js";
 import { findByOid, findUserByName } from "../user/service.js";
 import { updateCategoryCount } from "../category/service.js";
+import { findByName } from "../stage/service.js";
 
 // Create Idea
 export const createIdeaController = async (req, res) => {
@@ -11,7 +12,7 @@ export const createIdeaController = async (req, res) => {
     const stage = await findByName("Idea");
 
     let subdivisionId = req.body.subdivisionId;
-    if (subdivisionId && !isValidObjectId(subdivisionId)) {
+    if (!subdivisionId) {
       subdivisionId = null;
     }
 
