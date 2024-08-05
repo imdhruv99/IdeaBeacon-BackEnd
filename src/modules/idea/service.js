@@ -22,7 +22,7 @@ export const createIdea = async (ideaData) => {
       { $inc: { count: 1 } },
       { new: true, upsert: true }
     )
-    
+
     logger.info(`Idea with name ${idea.title} is created.`);
     return idea;
   } catch (err) {
@@ -35,7 +35,7 @@ export const createIdea = async (ideaData) => {
 export const getAllIdeas = async () => {
   logger.info("Fetching all ideas");
   try {
-    return await Idea.find({isActive: true}).populate(
+    return await Idea.find({isActive: true, isPrivate: false}).populate(
       "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
   } catch (err) {
