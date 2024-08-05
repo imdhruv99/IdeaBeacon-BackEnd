@@ -125,3 +125,21 @@ export const filterIdeasController = async (req, res) => {
       .json({ status: false, message: responseStrings.filterIdeaErrorMessage });
   }
 };
+
+
+// update idea stage and count controller
+export const updateIdeaStageAndCountController = async (req, res) => {
+  try {
+    const userId = await findByOid(req.user.oid);
+    const updatedIdea = await ideaService.updateIdeaStageAndCount(req.params.id, req.body.ideaStageId ,userId);
+    if (!updatedIdea) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
+    }
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateIdeaSuccessMessage, data: updatedIdea });
+  } catch (error) {
+    logger.error(`Error updating idea: ${error.message}`);
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
+      .json({ status: false, message: responseStrings.updateIdeaErrorMessage });
+  }
+}
