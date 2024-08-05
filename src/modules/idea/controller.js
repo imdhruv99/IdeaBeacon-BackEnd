@@ -2,14 +2,17 @@ import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import * as ideaService from "./service.js";
 import logger from "../../utils/logger.js";
 import { findByOid } from "../user/service.js";
+import { findByName } from "../stage/service.js";
 
 // Create Idea
 export const createIdeaController = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
+    const stage = await findByName("Idea");
 
     const newIdea = {
       ...req.body,
+      ideaStageId: stage._id,
       createdBy: user._id,
       updatedBy: user._id,
     };
@@ -29,7 +32,9 @@ export const createIdeaController = async (req, res) => {
 export const getAllIdeasController = async (req, res) => {
   try {
     const ideas = await ideaService.getAllIdeas();
-    res.status(HttpStatusCodes.OK.code).json({ status: true,  message: responseStrings.getAllIdeaSuccessMessage, data: ideas });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.getAllIdeaSuccessMessage, data: ideas });
   } catch (error) {
     logger.error(`Error fetching ideas: ${error.message}`);
     res
@@ -43,9 +48,13 @@ export const getIdeaByIdController = async (req, res) => {
   try {
     const idea = await ideaService.getIdeaById(req.params.id);
     if (!idea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getIdeaByIdSuccessMessage, data: idea });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.getIdeaByIdSuccessMessage, data: idea });
   } catch (error) {
     logger.error(`Error fetching idea: ${error.message}`);
     res
@@ -60,9 +69,13 @@ export const updateIdeaController = async (req, res) => {
     const userId = await findByOid(req.user.oid);
     const updatedIdea = await ideaService.updateIdea(req.params.id, req.body, userId);
     if (!updatedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateIdeaSuccessMessage, data: updatedIdea });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.updateIdeaSuccessMessage, data: updatedIdea });
   } catch (error) {
     logger.error(`Error updating idea: ${error.message}`);
     res
@@ -79,9 +92,13 @@ export const deleteIdeaController = async (req, res) => {
 
     const updatedIdea = await ideaService.softDeleteIdea(ideaId, userId);
     if (!updatedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: responseStrings.deleteIdeaSuccessMessage });
+    res
+      .status(HttpStatusCodes.NO_CONTENT.code)
+      .json({ status: true, message: responseStrings.deleteIdeaSuccessMessage });
   } catch (error) {
     logger.error(`Error deleting idea: ${error.message}`);
     res
@@ -117,7 +134,9 @@ export const filterIdeasController = async (req, res) => {
 
     // Fetch data from the "ideas" collection
     const ideas = await ideaService.filteredIdeas(query);
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.filterIdeaSuccessMessage, data: ideas });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.filterIdeaSuccessMessage, data: ideas });
   } catch (error) {
     logger.error(`Error deleting idea: ${error.message}`);
     res
