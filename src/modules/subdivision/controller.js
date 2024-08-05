@@ -31,7 +31,9 @@ export const createSubdivisionController = async (req, res) => {
 export const getAllSubdivisionsController = async (req, res) => {
   try {
     const subdivisions = await subdivisionService.getAllSubdivisions();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllSubdivisionSuccessMessage, data: subdivisions });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.getAllSubdivisionSuccessMessage, data: subdivisions });
   } catch (error) {
     logger.error(`Error fetching subdivisions: ${error.message}`);
     res
@@ -45,9 +47,13 @@ export const getSubdivisionByIdController = async (req, res) => {
   try {
     const subdivision = await subdivisionService.getSubdivisionById(req.params.id);
     if (!subdivision) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.subdivisionNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.subdivisionNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true,  message: responseStrings.getSubdivisionByIdSuccessMessage, data: subdivision });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.getSubdivisionByIdSuccessMessage, data: subdivision });
   } catch (error) {
     logger.error(`Error fetching subdivision: ${error.message}`);
     res
@@ -61,9 +67,13 @@ export const updateSubdivisionController = async (req, res) => {
   try {
     const updatedSubdivision = await subdivisionService.updateSubdivision(req.params.id, req.body);
     if (!updatedSubdivision) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.subdivisionNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.subdivisionNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateSubdivisionSuccessMessage, data: updatedSubdivision });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.updateSubdivisionSuccessMessage, data: updatedSubdivision });
   } catch (error) {
     logger.error(`Error updating subdivision: ${error.message}`);
     res
@@ -77,9 +87,13 @@ export const deleteSubdivisionController = async (req, res) => {
   try {
     const deletedSubdivision = await subdivisionService.deleteSubdivision(req.params.id);
     if (!deletedSubdivision) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.subdivisionNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.subdivisionNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.NO_CONTENT.code).json({ status: true, message: responseStrings.deleteSubdivisionSuccessMessage });
+    res
+      .status(HttpStatusCodes.NO_CONTENT.code)
+      .json({ status: true, message: responseStrings.deleteSubdivisionSuccessMessage });
   } catch (error) {
     logger.error(`Error deleting subdivision: ${error.message}`);
     res
@@ -90,9 +104,9 @@ export const deleteSubdivisionController = async (req, res) => {
 
 // get subdivision by function id
 export const getSubdivisionByFunctionIdController = async (req, res) => {
-  const { functionId } = req.params;
+  const { id } = req.params;
   try {
-    const subdivision = await subdivisionService.getSubdivisionByFunctionId(functionId);
+    const subdivision = await subdivisionService.getSubdivisionByFunctionId(id);
     if (!subdivision) {
       return res.status(HttpStatusCodes.NOT_FOUND.code).json({
         status: false,
