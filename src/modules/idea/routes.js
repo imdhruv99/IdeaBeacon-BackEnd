@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createIdeaController, deleteIdeaController, filterIdeasController, getAllIdeasController, getIdeaByIdController, updateIdeaController } from "./controller.js";
+import { createIdeaController, deleteIdeaController, filterIdeasController, getAllIdeasController, getIdeaByIdController, updateIdeaController, updateIdeaStageAndCountController } from "./controller.js";
 import { validateBody, validateFilterIdeaRequestBody, validateID, validateRequestBodyToUpdate, validateDeleteParam } from "./middleware.js";
 
 const ideaRouter = Router();
@@ -21,5 +21,8 @@ ideaRouter.delete("/delete-idea/:id", deleteIdea);
 
 const filterIdeas = [validateFilterIdeaRequestBody, filterIdeasController]
 ideaRouter.post("/filter", filterIdeas);
+
+const updateIdeaStage = [validateRequestBodyToUpdate, updateIdeaStageAndCountController]
+ideaRouter.put("/update-idea-stage/:id", updateIdeaStage);
 
 export default ideaRouter;

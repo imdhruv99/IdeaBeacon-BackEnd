@@ -16,6 +16,13 @@ export const createIdea = async (ideaData) => {
       updatedBy: idea.updatedBy,
     };
     await saveAuditLog(logData);
+
+    await  IdeaStageCount.findOneAndUpdate(
+      { stage: idea.ideaStageId._id },
+      { $inc: { count: 1 } },
+      { new: true, upsert: true }
+    )
+    
     logger.info(`Idea with name ${idea.title} is created.`);
     return idea;
   } catch (err) {
