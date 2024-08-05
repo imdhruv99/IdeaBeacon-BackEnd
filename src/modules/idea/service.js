@@ -63,7 +63,6 @@ export const getIdeaById = async (id) => {
   }
 };
 
-
 // Update Idea
 export const updateIdea = async (id, ideaData, userId) => {
   logger.info(`Updating idea with id: ${id}`);
@@ -103,7 +102,6 @@ export const updateIdea = async (id, ideaData, userId) => {
     throw err;
   }
 };
-
 
 // Delete Idea
 export const softDeleteIdea = async (id, userId) => {
