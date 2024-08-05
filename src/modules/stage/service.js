@@ -55,3 +55,14 @@ export const deleteStage = async (id) => {
     throw err;
   }
 };
+
+// Find Stage By Name
+export const findByName = async (name) => {
+  logger.info(`Fetching record for user ${name}`);
+  try {
+    return await Stage.findOne({ stageName: name });
+  } catch (err) {
+    logger.error(`Error fetching record for user ${oid}: ${err}`);
+    throw err;
+  }
+};

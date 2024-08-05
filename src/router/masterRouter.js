@@ -7,6 +7,7 @@ import stageRouter from "../modules/stage/routes.js";
 import categoryRouter from "../modules/category/routes.js";
 import functionRouter from "../modules/ideaFunction/routes.js";
 import subdivisionRouter from "../modules/subdivision/routes.js";
+import userRouter from "../modules/user/routes.js";
 
 const router = express.Router();
 
@@ -28,5 +29,6 @@ router.use("/stage/v1/", stageRouter);
 router.use("/category/v1/", categoryRouter);
 router.use("/function/v1/", functionRouter);
 router.use("/subdivision/v1/", subdivisionRouter);
+router.use("/user/v1/", userRouter);
 
 export default router;

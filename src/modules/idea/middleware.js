@@ -22,7 +22,6 @@ export const validateBody = async (req, res, next) => {
   if (
     isEmpty(createIdea) ||
     isEmpty(createIdea.ideaCategoryId) ||
-    isEmpty(createIdea.ideaStageId) ||
     isEmpty(createIdea.title) ||
     isEmpty(createIdea.problemStatement) ||
     isEmpty(createIdea.advantage) ||
@@ -33,7 +32,7 @@ export const validateBody = async (req, res, next) => {
     isEmpty(createIdea.subdivisionId) ||
     !Array.isArray(createIdea.tags) ||
     createIdea.tags.length === 0 ||
-    typeof createIdea.isPrivate !== 'boolean' ||
+    typeof createIdea.isPrivate !== "boolean" ||
     isNaN(Date.parse(createIdea.presentableDate))
   ) {
     logger.error("Bad request at idea/middlewares.createIdea: Missing or invalid field");
