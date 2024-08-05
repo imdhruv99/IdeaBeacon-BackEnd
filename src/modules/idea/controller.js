@@ -1,8 +1,8 @@
 import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import * as ideaService from "./service.js";
 import logger from "../../utils/logger.js";
-import { findByOid } from "../user/service.js";
-import { findByName } from "../stage/service.js";
+import { findByOid, findUserByName } from "../user/service.js";
+import { updateCategoryCount } from "../category/service.js";
 
 // Create Idea
 export const createIdeaController = async (req, res) => {
@@ -10,13 +10,23 @@ export const createIdeaController = async (req, res) => {
     const user = await findByOid(req.user.oid);
     const stage = await findByName("Idea");
 
+    let subdivisionId = req.body.subdivisionId;
+    if (subdivisionId && !isValidObjectId(subdivisionId)) {
+      subdivisionId = null;
+    }
+
     const newIdea = {
       ...req.body,
+      subdivisionId: subdivisionId,
       ideaStageId: stage._id,
       createdBy: user._id,
       updatedBy: user._id,
     };
     const createdIdea = await ideaService.createIdea(newIdea);
+
+    const updateCategoryCounter = await updateCategoryCount(req.body.ideaCategoryId);
+    logger.info(`Category count is increased for category ${updateCategoryCounter}`);
+    
     res
       .status(HttpStatusCodes.CREATED.code)
       .json({ status: true, message: responseStrings.createIdeaSuccessMessage, data: createdIdea });
@@ -110,13 +120,16 @@ export const deleteIdeaController = async (req, res) => {
 // Read Filtered Ideas
 export const filterIdeasController = async (req, res) => {
   try {
-    const { stageId, categoryId, authorId, functionId, subdivisionId, month, year } = req.body;
+    const { stageId, categoryId, authorName, functionId, subdivisionId, month, year } = req.body;
+
+    // serching user by name
+    const authorId = await findUserByName(authorName);
 
     let query = {};
 
     if (stageId) query.ideaStageId = stageId;
     if (categoryId) query.ideaCategoryId = categoryId;
-    if (authorId) query.createdBy = authorId;
+    if (authorId) query.createdBy = authorId._id;
     if (functionId) query.functionId = functionId;
     if (subdivisionId) query.subdivisionId = subdivisionId;
 
@@ -138,7 +151,7 @@ export const filterIdeasController = async (req, res) => {
       .status(HttpStatusCodes.OK.code)
       .json({ status: true, message: responseStrings.filterIdeaSuccessMessage, data: ideas });
   } catch (error) {
-    logger.error(`Error deleting idea: ${error.message}`);
+    logger.error(`Error fetching ideas: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.filterIdeaErrorMessage });

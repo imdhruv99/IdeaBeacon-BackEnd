@@ -10,7 +10,7 @@ const ideaSchema = new mongoose.Schema({
     existingSolution: { type: String, required: true },
     presentableDate: { type: Date, required: true },
     functionId: { type: mongoose.Schema.ObjectId, required: true, ref: 'Function' },
-    subdivisionId: { type: mongoose.Schema.ObjectId, required: true, ref: 'Subdivision' },
+    subdivisionId: { type: mongoose.Schema.Types.Mixed, ref: 'Subdivision' },
     isPrivate: { type: Boolean, default: false },
     coauthors: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
     tags: [{ type: String, required: true }],

@@ -33,3 +33,14 @@ export const getAllUsers = async () => {
     throw err;
   }
 };
+
+// Find user by name
+export const findUserByName = async (name) => {
+  logger.info(`Fetching record for user ${name}`);
+  try {
+    return await User.findOne({ name: name });
+  } catch (err) {
+    logger.error(`Error fetching record for user ${name}: ${err}`);
+    throw err;
+  }
+};

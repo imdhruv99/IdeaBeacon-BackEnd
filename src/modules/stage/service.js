@@ -1,4 +1,5 @@
 import Stage from "../../models/ideaStageModel.js";
+import IdeaStageCount from "../../models/ideaStagesCountModels.js";
 import logger from "../../utils/logger.js";
 
 // Create Stage
@@ -63,6 +64,22 @@ export const findByName = async (name) => {
     return await Stage.findOne({ stageName: name });
   } catch (err) {
     logger.error(`Error fetching record for user ${oid}: ${err}`);
+    throw err;
+  }
+};
+
+// get stage counter by id
+export const getStageCount = async (id) => {
+  logger.info(`Getting stage count with id: ${id}`);
+  try {
+    const result = await IdeaStageCount.findOne({ stage: id }).exec();
+    if (result) {
+      return result.count;
+    } else {
+      return 0;
+    }
+  } catch (err) {
+    logger.error(`Error getting stage count: ${err}`);
     throw err;
   }
 };

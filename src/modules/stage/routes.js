@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createStageController, deleteStageController, getAllStagesController, getStageByIdController, updateStageController } from "./controller.js";
+import { createStageController, deleteStageController, getAllStagesController, getStageByIdController, getStageCountController, updateStageController } from "./controller.js";
 import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const stageRouter = Router();
@@ -18,5 +18,8 @@ stageRouter.put("/update-stage/:id", updateStage);
 
 const deleteStage = [validateID, deleteStageController]
 stageRouter.delete("/delete-stage/:id", deleteStage);
+
+const getStageCount = [validateID, getStageCountController]
+stageRouter.get("/get-stage-count/:id", getStageCount);
 
 export default stageRouter;

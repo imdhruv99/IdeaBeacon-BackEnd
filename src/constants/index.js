@@ -56,6 +56,8 @@ export const responseStrings = {
   updateStageErrorMessage: "An error occurred while trying to update the stage with given id. Please try again later.",
   deleteStageSuccessMessage: "A Stage with given id has been deleted successfully.",
   deleteStageErrorMessage: "An error occurred while trying to delete the stage with given id. Please try again later.",
+  getCategoryCountErrorMessage: "Unable to find count for given Category id.",
+  getCategoryCountSuccessMessage: "Found count for given Category id.",
   
   // Category Messages
   createCategorySuccessMessage: "The Category has been successfully created.",
@@ -69,6 +71,8 @@ export const responseStrings = {
   updateCategoryErrorMessage: "An error occurred while trying to update the Category with given id. Please try again later.",
   deleteCategorySuccessMessage: "A Category with given id has been deleted successfully.",
   deleteCategoryErrorMessage: "An error occurred while trying to delete the category with given id. Please try again later.",
+  getStageCountErrorMessage: "Unable to find count for given stage id.",
+  getStageCountSuccessMessage: "Found count for given Stage id.",
 
 
   // Function Messages
