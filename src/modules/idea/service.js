@@ -151,10 +151,10 @@ export const updateIdeaStageAndCount = async (id, ideaStageId, userId) => {
       { ideaStageId: ideaStageId, updatedBy: userId },
       { new: true }
     ).populate("ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors");
-
+    
     const logData = {
       eventName: "Idea Moved",
-      details: `Idea with name ${updatedIdea.title} has been moved from ${existingIdea.ideaStageId._id} to ${ideaStageId} Stage.`,
+      details: `Idea with name ${updatedIdea.title} has been moved from ${existingIdea.ideaStageId.stageName} to ${updatedIdea.ideaStageId.stageName} Stage.`,
       ideaId: updatedIdea._id,
       createdBy: updatedIdea.createdBy,
       updatedBy: updatedIdea.updatedBy,
