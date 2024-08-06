@@ -73,8 +73,6 @@ export const updateIdea = async (id, ideaData, userId) => {
       "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
 
-    console.log(existingIdea);
-
     if (!existingIdea) {
       throw new Error(`Idea with id ${id} not found.`);
     }
