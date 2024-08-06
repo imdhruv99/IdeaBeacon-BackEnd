@@ -101,5 +101,8 @@ export const responseStrings = {
     deleteSubdivisionSuccessMessage: "A Subdivision with given id has been deleted successfully.",
     deleteSubdivisionErrorMessage: "An error occurred while trying to delete the subdivision with given id. Please try again later.",
     getSubdivisionByFunctionIdSuccessMessage: "A Subdivisions associated function id has been fetched successfully.",
-    getSubdivisionByFunctionIdErrorMessage: "An error occurred while trying to fetch the subdivisions with given function id. Please try again later."
+    getSubdivisionByFunctionIdErrorMessage: "An error occurred while trying to fetch the subdivisions with given function id. Please try again later.",
+
+    // Audit Log Error Message
+    auditLogNotFoundErrorMessage: "Unable to find Audit log for given Idea Id."
 };

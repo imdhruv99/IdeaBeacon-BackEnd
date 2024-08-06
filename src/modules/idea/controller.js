@@ -4,6 +4,7 @@ import logger from "../../utils/logger.js";
 import { findByOid, findUserByName } from "../user/service.js";
 import { updateCategoryCount } from "../category/service.js";
 import { findByName } from "../stage/service.js";
+import { getAuditLogByIdeaId } from "../auditLog/service.js";
 
 // Create Idea
 export const createIdeaController = async (req, res) => {
@@ -63,9 +64,21 @@ export const getIdeaByIdController = async (req, res) => {
         .status(HttpStatusCodes.NOT_FOUND.code)
         .json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
+    const auditLog = await getAuditLogByIdeaId(req.params.id);
+    if (!auditLog) {
+      return res
+      .status(HttpStatusCodes.NOT_FOUND.code)
+      .json({ status: false, message: responseStrings.auditLogNotFoundErrorMessage });
+    }
+
+    let data = {
+      ideaData: idea,
+      ideaAuditLogData: auditLog
+    }
+
     res
       .status(HttpStatusCodes.OK.code)
-      .json({ status: true, message: responseStrings.getIdeaByIdSuccessMessage, data: idea });
+      .json({ status: true, message: responseStrings.getIdeaByIdSuccessMessage, data: data });
   } catch (error) {
     logger.error(`Error fetching idea: ${error.message}`);
     res
