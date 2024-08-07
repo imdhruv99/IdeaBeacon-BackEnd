@@ -87,3 +87,19 @@ export const deleteStageController = async (req, res) => {
       .json({ status: false, message: responseStrings.deleteStageErrorMessage });
   }
 };
+
+// Get Stage Count
+export const getStageCountController = async (req, res) => {
+  try {
+    const getStageCount = await stageService.getStageCount(req.params.id);
+    if (!getStageCount) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.getStageCountErrorMessage });
+    }
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getStageCountSuccessMessage, data: getStageCount });
+  } catch (error) {
+    logger.error(`Error getting stage counter: ${error.message}`);
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
+      .json({ status: false, message: responseStrings.getStageCountErrorMessage });
+  }
+}

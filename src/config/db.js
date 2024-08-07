@@ -19,6 +19,8 @@ const connectDB = async () => {
         await import('../models/ideaModel.js');
         await import('../models/auditLogModel.js');
         await import('../models/roleModel.js');
+        await import('../models/ideaStagesCountModels.js');
+        await import('../models/IdeaCategoryCountModel.js');
 
         logger.info('Collections are created if not existing');
     } catch (error) {

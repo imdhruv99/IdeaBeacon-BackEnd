@@ -1,3 +1,4 @@
+import IdeaCategoryCount from "../../models/IdeaCategoryCountModel.js";
 import Category from "../../models/ideaCategoryModel.js";
 import logger from "../../utils/logger.js";
 
@@ -52,6 +53,37 @@ export const deleteCategory = async (id) => {
     return await Category.findByIdAndDelete(id);
   } catch (err) {
     logger.error(`Error deleting category: ${err}`);
+    throw err;
+  }
+};
+
+// update category counter
+export const updateCategoryCount = async(id) => {
+  logger.info(`Updating category count with id: ${id}`);
+  try {
+    await IdeaCategoryCount.findOneAndUpdate(
+      { category: id }, 
+      { $inc: { count: 1 } }, 
+      { new: true, upsert: true }
+    );
+  } catch (err) {
+    logger.error(`Error updating category counter: ${err}`);
+    throw err;
+  }
+}
+
+// get category counter by id
+export const getCategoryCount = async (id) => {
+  logger.info(`Getting category count with id: ${id}`);
+  try {
+    const result = await IdeaCategoryCount.findOne({ category: id }).exec();
+    if (result) {
+      return result.count;
+    } else {
+      return 0;
+    }
+  } catch (err) {
+    logger.error(`Error getting category count: ${err}`);
     throw err;
   }
 };

@@ -87,3 +87,19 @@ export const deleteCategoryController = async (req, res) => {
       .json({ status: false, message: responseStrings.deleteCategoryErrorMessage });
   }
 };
+
+// Get Category Count
+export const getCategoryCountController = async (req, res) => {
+  try {
+    const getCategoryCount = await categoryService.getCategoryCount(req.params.id);
+    if (!getCategoryCount) {
+      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.getCategoryCountErrorMessage });
+    }
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getCategoryCountSuccessMessage, data: getCategoryCount });
+  } catch (error) {
+    logger.error(`Error getting category counter: ${error.message}`);
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
+      .json({ status: false, message: responseStrings.getCategoryCountErrorMessage });
+  }
+}

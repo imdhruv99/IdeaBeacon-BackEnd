@@ -1,4 +1,5 @@
 import Idea from "../../models/ideaModel.js";
+import IdeaStageCount from "../../models/ideaStagesCountModels.js";
 import logger from "../../utils/logger.js";
 import { saveAuditLog } from "../auditLog/service.js";
 
@@ -15,6 +16,13 @@ export const createIdea = async (ideaData) => {
       updatedBy: idea.updatedBy,
     };
     await saveAuditLog(logData);
+
+    await  IdeaStageCount.findOneAndUpdate(
+      { stage: idea.ideaStageId._id },
+      { $inc: { count: 1 } },
+      { new: true, upsert: true }
+    )
+
     logger.info(`Idea with name ${idea.title} is created.`);
     return idea;
   } catch (err) {
@@ -27,7 +35,7 @@ export const createIdea = async (ideaData) => {
 export const getAllIdeas = async () => {
   logger.info("Fetching all ideas");
   try {
-    return await Idea.find({isActive: true}).populate(
+    return await Idea.find({isActive: true, isPrivate: false}).populate(
       "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
   } catch (err) {
@@ -54,7 +62,6 @@ export const getIdeaById = async (id) => {
     throw err;
   }
 };
-
 
 // Update Idea
 export const updateIdea = async (id, ideaData, userId) => {
@@ -94,7 +101,6 @@ export const updateIdea = async (id, ideaData, userId) => {
   }
 };
 
-
 // Delete Idea
 export const softDeleteIdea = async (id, userId) => {
   logger.info(`Soft deleting idea with id: ${id}`);
@@ -127,3 +133,52 @@ export const filteredIdeas = async (query) => {
     throw err;
   }
 };
+
+// update idea stage and count
+export const updateIdeaStageAndCount = async (id, ideaStageId, userId) => {
+  try {
+    // Fetch the current idea to get existing details
+    const existingIdea = await Idea.findOne({ _id: id, isActive: true }).populate(
+      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+    );
+
+    if (!existingIdea) {
+      throw new Error(`Idea with id ${id} not found.`);
+    }
+
+    const updatedIdea = await Idea.findByIdAndUpdate(
+      id, 
+      { ideaStageId: ideaStageId, updatedBy: userId },
+      { new: true }
+    ).populate("ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors");
+    
+    const logData = {
+      eventName: "Idea Moved",
+      details: `Idea with name ${updatedIdea.title} has been moved from ${existingIdea.ideaStageId.stageName} to ${updatedIdea.ideaStageId.stageName} Stage.`,
+      ideaId: updatedIdea._id,
+      createdBy: updatedIdea.createdBy,
+      updatedBy: updatedIdea.updatedBy,
+    };
+
+    await saveAuditLog(logData);
+
+    await Promise.all([
+      IdeaStageCount.findOneAndUpdate(
+        { stage: existingIdea.ideaStageId._id },
+        { $inc: { count: -1 } },
+        { new: true, upsert: true }
+      ),
+      IdeaStageCount.findOneAndUpdate(
+        { stage: ideaStageId },
+        { $inc: { count: 1 } },
+        { new: true, upsert: true }
+      )
+    ]);
+
+    logger.info(`Idea with name ${updatedIdea.title} has been updated.`);
+    return updatedIdea;
+  } catch (err) {
+    logger.error(`Error updating idea: ${err.message}`);
+    throw err;
+  }
+}

@@ -29,7 +29,6 @@ export const validateBody = async (req, res, next) => {
     isEmpty(createIdea.existingSolution) ||
     isEmpty(createIdea.presentableDate) ||
     isEmpty(createIdea.functionId) ||
-    isEmpty(createIdea.subdivisionId) ||
     !Array.isArray(createIdea.tags) ||
     createIdea.tags.length === 0 ||
     typeof createIdea.isPrivate !== "boolean" ||
