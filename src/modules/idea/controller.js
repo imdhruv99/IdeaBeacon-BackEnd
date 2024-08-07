@@ -136,7 +136,7 @@ export const filterIdeasController = async (req, res) => {
   try {
     const { stageId, categoryId, authorName, functionId, subdivisionId, month, year } = req.body;
 
-    // serching user by name
+    // searching user by name
     const authorId = await findUserByName(authorName);
 
     let query = {};
@@ -158,6 +158,7 @@ export const filterIdeasController = async (req, res) => {
         },
       };
     }
+    query.isActive = true;
 
     // Fetch data from the "ideas" collection
     const ideas = await ideaService.filteredIdeas(query);
