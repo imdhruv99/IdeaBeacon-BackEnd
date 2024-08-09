@@ -14,14 +14,14 @@ export const createUserController = async (req, res) => {
       ...req.body,
       role: process.env.ROLE,
     };
-
+        
     const existingUser = await findByOid(userId);
 
     if (existingUser) {
       logger.info(`User creation failed: User already exists for userId ${userId}`);
       return res
-        .status(HttpStatusCodes.BAD_REQUEST.code)
-        .json({ status: false, message: responseStrings.userAlreadyExistErrorMessage });
+        .status(HttpStatusCodes.OK.code)
+        .json({ status: false, message: responseStrings.userAlreadyExistErrorMessage});
     } else {
       const newUser = await createUser(userData);
       logger.info(`User created successfully: ${JSON.stringify(newUser)}`);
