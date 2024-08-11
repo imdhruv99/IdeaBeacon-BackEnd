@@ -1,7 +1,7 @@
 import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import * as ideaService from "./service.js";
 import logger from "../../utils/logger.js";
-import { findByOid, findUserByName } from "../user/service.js";
+import { findByOid, findUserByID } from "../user/service.js";
 import { updateCategoryCount } from "../category/service.js";
 import { findByName } from "../stage/service.js";
 import { getAuditLogByIdeaId } from "../auditLog/service.js";
@@ -134,16 +134,18 @@ export const deleteIdeaController = async (req, res) => {
 // Read Filtered Ideas
 export const filterIdeasController = async (req, res) => {
   try {
-    const { stageId, categoryId, authorName, functionId, subdivisionId, month, year } = req.body;
-
+    const { stageId, categoryId, authorId, functionId, subdivisionId, month, year } = req.body;
+    let author = undefined;
     // searching user by name
-    const authorId = await findUserByName(authorName);
-
+    if (authorId !== ""){
+      author = await findUserByID(authorId);
+    }
+    
     let query = {};
 
     if (stageId) query.ideaStageId = stageId;
     if (categoryId) query.ideaCategoryId = categoryId;
-    if (authorId) query.createdBy = authorId._id;
+    if (authorId) query.createdBy = author._id;
     if (functionId) query.functionId = functionId;
     if (subdivisionId) query.subdivisionId = subdivisionId;
 
@@ -159,7 +161,7 @@ export const filterIdeasController = async (req, res) => {
       };
     }
     query.isActive = true;
-
+    
     // Fetch data from the "ideas" collection
     const ideas = await ideaService.filteredIdeas(query);
     res

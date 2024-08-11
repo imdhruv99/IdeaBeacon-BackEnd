@@ -27,7 +27,7 @@ export const createUser = async (userData) => {
 export const getAllUsers = async () => {
   logger.info("Fetching all Users");
   try {
-    return await User.find();
+    return await User.find().populate("role");
   } catch (err) {
     logger.error(`Error fetching users: ${err}`);
     throw err;
@@ -35,10 +35,10 @@ export const getAllUsers = async () => {
 };
 
 // Find user by name
-export const findUserByName = async (name) => {
-  logger.info(`Fetching record for user ${name}`);
+export const findUserByID = async (id) => {
+  logger.info(`Fetching record for user ${id}`);
   try {
-    return await User.findOne({ name: name });
+    return await User.findOne({ _id: id });
   } catch (err) {
     logger.error(`Error fetching record for user ${name}: ${err}`);
     throw err;
