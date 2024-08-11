@@ -21,7 +21,7 @@ export const createUserController = async (req, res) => {
       logger.info(`User creation failed: User already exists for userId ${userId}`);
       return res
         .status(HttpStatusCodes.OK.code)
-        .json({ status: false, message: responseStrings.userAlreadyExistErrorMessage});
+        .json({ status: false, message: responseStrings.userAlreadyExistErrorMessage, data: existingUser});
     } else {
       const newUser = await createUser(userData);
       logger.info(`User created successfully: ${JSON.stringify(newUser)}`);

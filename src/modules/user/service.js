@@ -5,7 +5,7 @@ import logger from "../../utils/logger.js";
 export const findByOid = async (oid) => {
   logger.info(`Fetching record for user ${oid}`);
   try {
-    return await User.findOne({ oid: oid });
+    return await User.findOne({ oid: oid }).populate("role");
   } catch (err) {
     logger.error(`Error fetching record for user ${oid}: ${err}`);
     throw err;
@@ -16,7 +16,7 @@ export const findByOid = async (oid) => {
 export const createUser = async (userData) => {
   logger.info(`Saving user ${userData.oid}`);
   try {
-    return User.create(userData);
+    return (await User.create(userData)).populate("role");
   } catch (err) {
     logger.error(`Error saving user ${userData.oid}: ${err}`);
     throw err;
@@ -27,7 +27,7 @@ export const createUser = async (userData) => {
 export const getAllUsers = async () => {
   logger.info("Fetching all Users");
   try {
-    return await User.find();
+    return await User.find().populate("role");
   } catch (err) {
     logger.error(`Error fetching users: ${err}`);
     throw err;
@@ -35,10 +35,10 @@ export const getAllUsers = async () => {
 };
 
 // Find user by name
-export const findUserByName = async (name) => {
-  logger.info(`Fetching record for user ${name}`);
+export const findUserByID = async (id) => {
+  logger.info(`Fetching record for user ${id}`);
   try {
-    return await User.findOne({ name: name });
+    return await User.findOne({ _id: id });
   } catch (err) {
     logger.error(`Error fetching record for user ${name}: ${err}`);
     throw err;
