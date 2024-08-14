@@ -1,4 +1,4 @@
-import IdeaCategoryCount from "../../models/IdeaCategoryCountModel.js";
+import IdeaCategoryCount from "../../models/ideaCategoryCountModel.js";
 import Category from "../../models/ideaCategoryModel.js";
 import logger from "../../utils/logger.js";
 
