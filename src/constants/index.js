@@ -56,8 +56,9 @@ export const responseStrings = {
   updateStageErrorMessage: "An error occurred while trying to update the stage with given id. Please try again later.",
   deleteStageSuccessMessage: "A Stage with given id has been deleted successfully.",
   deleteStageErrorMessage: "An error occurred while trying to delete the stage with given id. Please try again later.",
-  getVerticalCountErrorMessage: "Unable to find count for given Vertical id.",
-  getVerticalCountSuccessMessage: "Found count for given Vertical id.",
+  getStageCountErrorMessage: "Unable to find count for given stage id.",
+  getStageCountSuccessMessage: "Found count for given Stage id.",
+
 
   // Vertical Messages
   createVerticalSuccessMessage: "The Vertical has been successfully created.",
@@ -71,8 +72,8 @@ export const responseStrings = {
   updateVerticalErrorMessage: "An error occurred while trying to update the Vertical with given id. Please try again later.",
   deleteVerticalSuccessMessage: "A Vertical with given id has been deleted successfully.",
   deleteVerticalErrorMessage: "An error occurred while trying to delete the vertical with given id. Please try again later.",
-  getStageCountErrorMessage: "Unable to find count for given stage id.",
-  getStageCountSuccessMessage: "Found count for given Stage id.",
+  getVerticalCountErrorMessage: "Unable to find count for given Vertical id.",
+  getVerticalCountSuccessMessage: "Found count for given Vertical id.",
 
 
   // Function Messages
