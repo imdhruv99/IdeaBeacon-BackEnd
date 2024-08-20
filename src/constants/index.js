@@ -64,7 +64,7 @@ export const responseStrings = {
   createVerticalSuccessMessage: "The Vertical has been successfully created.",
   createVerticalErrorMessage: "An error occurred while trying to create the vertical. Please try again later.",
   getAllVerticalSuccessMessage: "All Vertical has been fetched successfully.",
-  getAllVerticalErrorMessage: "An error occurred while trying to fetch all the categories. Please try again later.",
+  getAllVerticalErrorMessage: "An error occurred while trying to fetch all the verticals. Please try again later.",
   verticalNotFoundErrorMessage: "A Vertical with given id not Found.",
   getVerticalByIdSuccessMessage: "A Vertical with given id has been fetched successfully.",
   getVerticalByIdErrorMessage: "An error occurred while trying to fetch the vertical with given id. Please try again later.",

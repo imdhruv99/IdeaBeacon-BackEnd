@@ -27,11 +27,11 @@ export const createVerticalController = async (req, res) => {
   }
 };
 
-// Read All Categories
-export const getAllCategoriesController = async (req, res) => {
+// Read All Verticals
+export const getAllVerticalsController = async (req, res) => {
   try {
-    const categories = await verticalService.getAllCategories();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllVerticalSuccessMessage, data: categories });
+    const verticals = await verticalService.getAllVerticals();
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllVerticalSuccessMessage, data: verticals });
   } catch (error) {
     logger.error(`Error fetching Verticals: ${error.message}`);
     res

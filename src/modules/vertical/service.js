@@ -13,13 +13,13 @@ export const createVertical = async (verticalData) => {
   }
 };
 
-// Read All Categories
-export const getAllCategories = async () => {
-  logger.info("Fetching all categories");
+// Read All Verticals
+export const getAllVerticals = async () => {
+  logger.info("Fetching all verticals");
   try {
     return await Vertical.find().populate("verticalName createdBy updatedBy");
   } catch (err) {
-    logger.error(`Error fetching categories: ${err}`);
+    logger.error(`Error fetching verticals: ${err}`);
     throw err;
   }
 };

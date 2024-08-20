@@ -35,7 +35,7 @@
 
 #### Page 6: Dashboard
 - Idea Stages API
-- Idea Categories API
+- Idea Verticals API
 
 #### Page 7: Login
 - Login API , Microsoft AD Authentication
