@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const ideaSchema = new mongoose.Schema({
-    ideaCategoryId: { type: mongoose.Schema.ObjectId, required: true, ref: 'IdeaCategory' },
+    ideaVerticalId: { type: mongoose.Schema.ObjectId, required: true, ref: 'IdeaVertical' },
     ideaStageId: { type: mongoose.Schema.ObjectId, required: true, ref: 'IdeaStage' },
     title: { type: String, required: true },
     problemStatement: { type: String, required: true },
@@ -15,10 +15,10 @@ const ideaSchema = new mongoose.Schema({
     coauthors: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
     tags: [{ type: String, required: true }],
     createdBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },
-    updatedBy: { type:  mongoose.Schema.ObjectId, required: true, ref: 'User' },
-    deletedAT: {type: Date},
-    deletedBy: { type:  mongoose.Schema.ObjectId, ref: 'User' },
-    isActive: {type: Boolean, default: true},
+    updatedBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },
+    deletedAT: { type: Date },
+    deletedBy: { type: mongoose.Schema.ObjectId, ref: 'User' },
+    isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
 const Idea = mongoose.model('Idea', ideaSchema);

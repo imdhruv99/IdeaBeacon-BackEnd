@@ -2,7 +2,7 @@ import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import * as ideaService from "./service.js";
 import logger from "../../utils/logger.js";
 import { findByOid, findUserByID } from "../user/service.js";
-import { updateCategoryCount } from "../category/service.js";
+import { updateVerticalCount } from "../vertical/service.js";
 import { findByName } from "../stage/service.js";
 import { getAuditLogByIdeaId } from "../auditLog/service.js";
 
@@ -26,9 +26,9 @@ export const createIdeaController = async (req, res) => {
     };
     const createdIdea = await ideaService.createIdea(newIdea);
 
-    const updateCategoryCounter = await updateCategoryCount(req.body.ideaCategoryId);
-    logger.info(`Category count is increased for category ${updateCategoryCounter}`);
-    
+    const updateVerticalCounter = await updateVerticalCount(req.body.ideaVerticalId);
+    logger.info(`Vertical count is increased for vertical ${updateVerticalCounter}`);
+
     res
       .status(HttpStatusCodes.CREATED.code)
       .json({ status: true, message: responseStrings.createIdeaSuccessMessage, data: createdIdea });
@@ -67,8 +67,8 @@ export const getIdeaByIdController = async (req, res) => {
     const auditLog = await getAuditLogByIdeaId(req.params.id);
     if (!auditLog) {
       return res
-      .status(HttpStatusCodes.NOT_FOUND.code)
-      .json({ status: false, message: responseStrings.auditLogNotFoundErrorMessage });
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.auditLogNotFoundErrorMessage });
     }
 
     let data = {
@@ -134,17 +134,17 @@ export const deleteIdeaController = async (req, res) => {
 // Read Filtered Ideas
 export const filterIdeasController = async (req, res) => {
   try {
-    const { stageId, categoryId, authorId, functionId, subdivisionId, month, year } = req.body;
+    const { stageId, verticalId, authorId, functionId, subdivisionId, month, year } = req.body;
     let author = undefined;
     // searching user by name
-    if (authorId !== ""){
+    if (authorId !== "") {
       author = await findUserByID(authorId);
     }
-    
+
     let query = {};
 
     if (stageId) query.ideaStageId = stageId;
-    if (categoryId) query.ideaCategoryId = categoryId;
+    if (verticalId) query.ideaVerticalId = verticalId;
     if (authorId) query.createdBy = author._id;
     if (functionId) query.functionId = functionId;
     if (subdivisionId) query.subdivisionId = subdivisionId;
@@ -161,7 +161,7 @@ export const filterIdeasController = async (req, res) => {
       };
     }
     query.isActive = true;
-    
+
     // Fetch data from the "ideas" collection
     const ideas = await ideaService.filteredIdeas(query);
     res
@@ -180,7 +180,7 @@ export const filterIdeasController = async (req, res) => {
 export const updateIdeaStageAndCountController = async (req, res) => {
   try {
     const userId = await findByOid(req.user.oid);
-    const updatedIdea = await ideaService.updateIdeaStageAndCount(req.params.id, req.body.ideaStageId ,userId);
+    const updatedIdea = await ideaService.updateIdeaStageAndCount(req.params.id, req.body.ideaStageId, userId);
     if (!updatedIdea) {
       return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }

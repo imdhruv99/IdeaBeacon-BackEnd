@@ -66,32 +66,32 @@ Replace object id with your `ADMIN` user's object ID.
 }
 ```
 
-### Create Idea Categories
+### Create Idea Verticals
 Replace object id with your `ADMIN` user's object ID.
 ```
 {
-  "categoryName": "Tools & Technology",
+  "verticalName": "Tools & Technology",
   "createdBy": ObjectId("66ae26ca1226a2b3ef06b215"),
   "updatedBy": ObjectId("66ae26ca1226a2b3ef06b215")
 },
 ```
 ```
 {
-  "categoryName": "Process & Documentation",
+  "verticalName": "Process & Documentation",
   "createdBy": ObjectId("66ae26ca1226a2b3ef06b215"),
   "updatedBy": ObjectId("66ae26ca1226a2b3ef06b215")
 },
 ```
 ```
 {
-  "categoryName": "Work Life Integrations",
+  "verticalName": "Work Life Integrations",
   "createdBy": ObjectId("66ae26ca1226a2b3ef06b215"),
   "updatedBy": ObjectId("66ae26ca1226a2b3ef06b215")
 },
 ```
 ```
 {
-  "categoryName": Other",
+  "verticalName": Other",
   "createdBy": ObjectId("66ae26ca1226a2b3ef06b215"),
   "updatedBy": ObjectId("66ae26ca1226a2b3ef06b215")
 },
