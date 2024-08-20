@@ -1,7 +1,6 @@
 import IdeaVerticalCount from "../../models/ideaVerticalCountModel.js";
 import Vertical from "../../models/ideaVerticalModel.js";
 import logger from "../../utils/logger.js";
-import IdeaVerticalCount from "../../models/ideaVerticalCountModel.js";
 
 // Create Vertical
 export const createVertical = async (verticalData) => {
