@@ -14,8 +14,8 @@
 
 #### Page 1: Post Idea
 - Post Idea Create API 
-- Idea Category API - Dropdown
-- Function Category API - Dropdown
+- Idea Vertical API - Dropdown
+- Function Vertical API - Dropdown
 - Sub Division API -  Dropdown
 
 #### Page 2: Ideas
@@ -35,7 +35,7 @@
 
 #### Page 6: Dashboard
 - Idea Stages API
-- Idea Categories API
+- Idea Verticals API
 
 #### Page 7: Login
 - Login API , Microsoft AD Authentication
@@ -51,11 +51,11 @@
 | Name | not null | String |
 | Email | not null |String|
 
-#### Idea Category
+#### Idea Vertical
 | Column Names  | key| DataType
 | ------------- | ------------- | ------------- | 
 | ID | PK | hexadecimal |
-| Category name | not null | string|
+| Vertical name | not null | string|
 
 #### Idea Stage Table
 | Column Names  | key| DataType
@@ -88,7 +88,7 @@
 |Column Names|Key|DataType|
 | ------------- | ------------- | ------------- | 
 | ID | PK | hexadecimal|
-|Idea category | FG | id |
+|Idea Vertical | FG | id |
 |Idea stage | FG | id |
 | Title| not null | string |
 | problem statement| not null | string |

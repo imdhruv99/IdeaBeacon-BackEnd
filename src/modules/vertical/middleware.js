@@ -4,9 +4,9 @@ import { isEmpty } from "../../utils/utils.js";
 
 
 export const validateBody = async (req, res, next) => {
-  const createCategory = req.body;
-  if (!createCategory) {
-    logger.error("Bad request at category/middlewares.createCategory: Missing or invalid field");
+  const createVertical = req.body;
+  if (!createVertical) {
+    logger.error("Bad request at vertical/middlewares.createVertical: Missing or invalid field");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,
       message: responseStrings.missingPayload,
@@ -17,11 +17,11 @@ export const validateBody = async (req, res, next) => {
 };
 
 export const validateRequestBodyToUpdate = async (req, res, next) => {
-  const updateCategory = req.body;
+  const updateVertical = req.body;
   const { id } = req.params;
 
-  if (isEmpty(id) || isEmpty(updateCategory)) {
-    logger.error("Bad request at category/middlewares.update-category");
+  if (isEmpty(id) || isEmpty(updateVertical)) {
+    logger.error("Bad request at vertical/middlewares.update-vertical");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,
       message: responseStrings.missingPayload,
@@ -33,7 +33,7 @@ export const validateRequestBodyToUpdate = async (req, res, next) => {
 export const validateID = async (req, res, next) => {
   let { id } = req.params;
   if (isEmpty(id)) {
-    logger.error("Bad request at category/middlewares.get-category-by-id");
+    logger.error("Bad request at vertical/middlewares.get-vertical-by-id");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
       status: false,
       message: responseStrings.missingPayload,

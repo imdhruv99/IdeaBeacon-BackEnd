@@ -36,7 +36,7 @@ export const getAllIdeas = async () => {
   logger.info("Fetching all ideas");
   try {
     return await Idea.find({ isActive: true, isPrivate: false }).populate(
-      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+      "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
   } catch (err) {
     logger.error(`Error fetching ideas: ${err}`);
@@ -49,7 +49,7 @@ export const getIdeaById = async (id) => {
   logger.info(`Fetching idea with id: ${id}`);
   try {
     const idea = await Idea.findOne({ _id: id, isActive: true }).populate(
-      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+      "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
 
     if (!idea) {
@@ -70,7 +70,7 @@ export const updateIdea = async (id, ideaData, userId) => {
   try {
     // Fetch the current idea to get existing details
     const existingIdea = await Idea.findOne({ _id: id, isActive: true }).populate(
-      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+      "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
 
     if (!existingIdea) {
@@ -78,7 +78,7 @@ export const updateIdea = async (id, ideaData, userId) => {
     }
 
     const updatedIdea = await Idea.findByIdAndUpdate(id, { ...ideaData, updatedBy: userId }, { new: true }).populate(
-      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+      "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
 
     const logData = {
@@ -126,7 +126,7 @@ export const filteredIdeas = async (query) => {
   logger.info("Fetching filtered ideas");
   try {
     return await Idea.find(query).populate(
-      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+      "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
   } catch (err) {
     logger.error(`Error fetching filtered ideas: ${err}`);
@@ -139,7 +139,7 @@ export const updateIdeaStageAndCount = async (id, ideaStageId, userId) => {
   try {
     // Fetch the current idea to get existing details
     const existingIdea = await Idea.findOne({ _id: id, isActive: true }).populate(
-      "ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
+      "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors"
     );
 
     if (!existingIdea) {
@@ -150,7 +150,7 @@ export const updateIdeaStageAndCount = async (id, ideaStageId, userId) => {
       id,
       { ideaStageId: ideaStageId, updatedBy: userId },
       { new: true }
-    ).populate("ideaCategoryId ideaStageId functionId subdivisionId createdBy updatedBy coauthors");
+    ).populate("ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors");
 
     const logData = {
       eventName: "Idea Moved",
