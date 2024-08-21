@@ -104,6 +104,10 @@ export const responseStrings = {
   getSubdivisionByFunctionIdSuccessMessage: "A Subdivisions associated function id has been fetched successfully.",
   getSubdivisionByFunctionIdErrorMessage: "An error occurred while trying to fetch the subdivisions with given function id. Please try again later.",
 
-  // Audit Log Error Message
-  auditLogNotFoundErrorMessage: "Unable to find Audit log for given Idea Id."
+  // Audit Log Messages
+  auditLogNotFoundErrorMessage: "Unable to find Audit log for given Idea Id.",
+
+  // Tags Messages
+  getAllTagsSuccessMessage: "All Tags has been fetched successfully.",
+  getAllTagsErrorMessage: "An error occurred while trying to fetch the tags. Please try again later.",
 };

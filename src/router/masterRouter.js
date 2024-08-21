@@ -8,6 +8,7 @@ import verticalRouter from "../modules/vertical/routes.js";
 import functionRouter from "../modules/ideaFunction/routes.js";
 import subdivisionRouter from "../modules/subdivision/routes.js";
 import userRouter from "../modules/user/routes.js";
+import tagRouter from "../modules/tags/routes.js";
 
 const router = express.Router();
 
@@ -30,5 +31,6 @@ router.use("/vertical/v1/", verticalRouter);
 router.use("/function/v1/", functionRouter);
 router.use("/subdivision/v1/", subdivisionRouter);
 router.use("/user/v1/", userRouter);
+router.use("/tag/v1/", tagRouter);
 
 export default router;
