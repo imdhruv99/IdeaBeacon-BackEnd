@@ -13,7 +13,7 @@ const ideaSchema = new mongoose.Schema({
     subdivisionId: { type: mongoose.Schema.Types.Mixed, ref: 'Subdivision' },
     isPrivate: { type: Boolean, default: false },
     coauthors: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-    tags: [{ type: String, required: true }],
+    tags: [{ type: mongoose.Schema.ObjectId, ref: 'Tag' }],
     createdBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },
     updatedBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },
     deletedAT: { type: Date },
