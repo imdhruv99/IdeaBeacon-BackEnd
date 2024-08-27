@@ -9,7 +9,6 @@ const ideaSchema = new mongoose.Schema({
     proposedSolution: { type: String, required: true },
     existingSolution: { type: String, required: true },
     functionId: { type: mongoose.Schema.ObjectId, required: true, ref: 'Function' },
-    subdivisionId: { type: mongoose.Schema.Types.Mixed, ref: 'Subdivision' },
     coauthors: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
     tags: [{ type: mongoose.Schema.ObjectId, ref: 'Tag' }],
     createdBy: { type: mongoose.Schema.ObjectId, required: true, ref: 'User' },

@@ -14,7 +14,6 @@ const connectDB = async () => {
         await import('../models/ideaVerticalModel.js');
         await import('../models/ideaStageModel.js');
         await import('../models/functionModel.js');
-        await import('../models/subdivisionModel.js');
         await import('../models/sharedIdeaModel.js');
         await import('../models/ideaModel.js');
         await import('../models/auditLogModel.js');

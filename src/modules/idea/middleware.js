@@ -3,7 +3,7 @@ import logger from "../../utils/logger.js";
 import { isEmpty } from "../../utils/utils.js";
 
 export const validateFilterIdeaRequestBody = (req, res, next) => {
-  const { stage, vertical, author, function: func, subdivision, month, year } = req.body;
+  const { stage, vertical, author, function: func, month, year } = req.body;
 
   // Add any specific validation rules here
   if (month && (month < 1 || month > 12)) {

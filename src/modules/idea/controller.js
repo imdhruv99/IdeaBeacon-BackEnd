@@ -10,16 +10,10 @@ import { getAuditLogByIdeaId } from "../auditLog/service.js";
 export const createIdeaController = async (req, res) => {
   try {
     const user = await findByOid(req.user.oid);
-    const stage = await findByName("Idea");
-
-    let subdivisionId = req.body.subdivisionId;
-    if (!subdivisionId) {
-      subdivisionId = null;
-    }
+    const stage = await findByName("Submitted");
 
     const newIdea = {
       ...req.body,
-      subdivisionId: subdivisionId,
       ideaStageId: stage._id,
       createdBy: user._id,
       updatedBy: user._id,
@@ -134,7 +128,7 @@ export const deleteIdeaController = async (req, res) => {
 // Read Filtered Ideas
 export const filterIdeasController = async (req, res) => {
   try {
-    const { stageId, verticalId, authorId, functionId, subdivisionId, month, year } = req.body;
+    const { stageId, verticalId, authorId, functionId, month, year } = req.body;
     let author = undefined;
     // searching user by name
     if (authorId !== "") {
@@ -147,7 +141,6 @@ export const filterIdeasController = async (req, res) => {
     if (verticalId) query.ideaVerticalId = verticalId;
     if (authorId) query.createdBy = author._id;
     if (functionId) query.functionId = functionId;
-    if (subdivisionId) query.subdivisionId = subdivisionId;
 
     if (month || year) {
       query = {
