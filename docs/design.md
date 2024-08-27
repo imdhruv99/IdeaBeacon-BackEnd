@@ -95,10 +95,8 @@
 | advantage| not null | string |
 | proposed solution| not null | string |
 | Existing solution|not null | string|
-|Presentable date | not null | date|
 | Function| FG | id |
 | sub div|  FG | id |
-| isPrivate | default=false| bool|
 | coauthors | null possible |list of user id|
 | tags | not null | list of string|
 

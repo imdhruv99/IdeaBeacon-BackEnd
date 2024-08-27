@@ -39,7 +39,7 @@ export const createIdea = async (ideaData) => {
 export const getAllIdeas = async () => {
   logger.info("Fetching all ideas");
   try {
-    return await Idea.find({ isActive: true, isPrivate: false }).populate(
+    return await Idea.find({ isActive: true }).populate(
       "ideaVerticalId ideaStageId functionId subdivisionId createdBy updatedBy coauthors tags"
     );
   } catch (err) {
