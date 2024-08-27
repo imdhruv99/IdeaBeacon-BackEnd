@@ -8,7 +8,6 @@ const ideaSchema = new mongoose.Schema({
     advantage: { type: String, required: true },
     proposedSolution: { type: String, required: true },
     existingSolution: { type: String, required: true },
-    presentableDate: { type: Date, required: true },
     functionId: { type: mongoose.Schema.ObjectId, required: true, ref: 'Function' },
     subdivisionId: { type: mongoose.Schema.Types.Mixed, ref: 'Subdivision' },
     isPrivate: { type: Boolean, default: false },

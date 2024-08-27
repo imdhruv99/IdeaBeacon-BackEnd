@@ -27,12 +27,10 @@ export const validateBody = async (req, res, next) => {
     isEmpty(createIdea.advantage) ||
     isEmpty(createIdea.proposedSolution) ||
     isEmpty(createIdea.existingSolution) ||
-    isEmpty(createIdea.presentableDate) ||
     isEmpty(createIdea.functionId) ||
     !Array.isArray(createIdea.tags) ||
     createIdea.tags.length === 0 ||
-    typeof createIdea.isPrivate !== "boolean" ||
-    isNaN(Date.parse(createIdea.presentableDate))
+    typeof createIdea.isPrivate !== "boolean"
   ) {
     logger.error("Bad request at idea/middlewares.createIdea: Missing or invalid field");
     return res.status(HttpStatusCodes.BAD_REQUEST.code).json({
