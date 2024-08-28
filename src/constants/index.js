@@ -99,4 +99,6 @@ export const responseStrings = {
   // Site Statistic Messages
   incrementSiteVisitStatisticSuccessMessage: "Site visit count incremented successfully.",
   incrementSiteVisitStatisticErrorMessage: "Error occurred while incrementing site visit count.",
+  getAllVisitStatisticSuccessMessage: "Site visit count has been fetched successfully.",
+  getAllVisitStatisticErrorMessage: "An error occurred while trying to fetch the site visit count. Please try again later.",
 };
