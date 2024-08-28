@@ -95,4 +95,10 @@ export const responseStrings = {
   // Tags Messages
   getAllTagsSuccessMessage: "All Tags has been fetched successfully.",
   getAllTagsErrorMessage: "An error occurred while trying to fetch the tags. Please try again later.",
+
+  // Site Statistic Messages
+  incrementSiteVisitStatisticSuccessMessage: "Site visit count incremented successfully.",
+  incrementSiteVisitStatisticErrorMessage: "Error occurred while incrementing site visit count.",
+  getAllVisitStatisticSuccessMessage: "Site visit count has been fetched successfully.",
+  getAllVisitStatisticErrorMessage: "An error occurred while trying to fetch the site visit count. Please try again later.",
 };
