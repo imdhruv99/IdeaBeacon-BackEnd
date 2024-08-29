@@ -31,14 +31,33 @@ export const createStageController = async (req, res) => {
 export const getAllStagesController = async (req, res) => {
   try {
     const stages = await stageService.getAllStages();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllStageSuccessMessage, data: stages });
+    const updatedStages = await Promise.all(
+      stages.map(async (stage) => {
+        logger.info(`Fetching count for stage with id: ${stage._id}`)
+        const count = await stageService.getStageCount(stage._id);
+        const stageObj = stage.toObject ? stage.toObject() : stage;
+        return {
+          ...stageObj,
+          count
+        };
+      })
+    );
+    res.status(HttpStatusCodes.OK.code).json({
+      status: true,
+      message: responseStrings.getAllStageSuccessMessage,
+      data: updatedStages
+    });
   } catch (error) {
     logger.error(`Error fetching stages: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.getAllStageErrorMessage });
+      .json({
+        status: false,
+        message: responseStrings.getAllStageErrorMessage
+      });
   }
 };
+
 
 // Read Single Stage
 export const getStageByIdController = async (req, res) => {
@@ -87,19 +106,3 @@ export const deleteStageController = async (req, res) => {
       .json({ status: false, message: responseStrings.deleteStageErrorMessage });
   }
 };
-
-// Get Stage Count
-export const getStageCountController = async (req, res) => {
-  try {
-    const getStageCount = await stageService.getStageCount(req.params.id);
-    if (!getStageCount) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.getStageCountErrorMessage });
-    }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getStageCountSuccessMessage, data: getStageCount });
-  } catch (error) {
-    logger.error(`Error getting stage counter: ${error.message}`);
-    res
-      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.getStageCountErrorMessage });
-  }
-}

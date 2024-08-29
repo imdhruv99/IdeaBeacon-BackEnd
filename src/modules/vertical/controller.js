@@ -31,7 +31,18 @@ export const createVerticalController = async (req, res) => {
 export const getAllVerticalsController = async (req, res) => {
   try {
     const verticals = await verticalService.getAllVerticals();
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllVerticalSuccessMessage, data: verticals });
+    const updatedVerticals = await Promise.all(
+      verticals.map(async (vertical) => {
+        logger.info(`Fetching count for vertical with id: ${vertical._id}`)
+        const count = await verticalService.getVerticalCount(vertical._id);
+        const verticalObj = vertical.toObject ? vertical.toObject() : vertical;
+        return {
+          ...verticalObj,
+          count
+        };
+      })
+    );
+    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getAllVerticalSuccessMessage, data: updatedVerticals });
   } catch (error) {
     logger.error(`Error fetching Verticals: ${error.message}`);
     res
@@ -87,19 +98,3 @@ export const deleteVerticalController = async (req, res) => {
       .json({ status: false, message: responseStrings.deleteVerticalErrorMessage });
   }
 };
-
-// Get Vertical Count
-export const getVerticalCountController = async (req, res) => {
-  try {
-    const getVerticalCount = await verticalService.getVerticalCount(req.params.id);
-    if (!getVerticalCount) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.getVerticalCountErrorMessage });
-    }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.getVerticalCountSuccessMessage, data: getVerticalCount });
-  } catch (error) {
-    logger.error(`Error getting vertical counter: ${error.message}`);
-    res
-      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
-      .json({ status: false, message: responseStrings.getVerticalCountErrorMessage });
-  }
-}

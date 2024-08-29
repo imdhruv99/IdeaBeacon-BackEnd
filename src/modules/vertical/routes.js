@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createVerticalController, deleteVerticalController, getAllVerticalsController, getVerticalByIdController, getVerticalCountController, updateVerticalController } from "./controller.js";
+import { createVerticalController, deleteVerticalController, getAllVerticalsController, getVerticalByIdController, updateVerticalController } from "./controller.js";
 import { validateBody, validateID, validateRequestBodyToUpdate } from "./middleware.js";
 
 const verticalRouter = Router();
@@ -18,8 +18,5 @@ verticalRouter.put("/update-vertical/:id", updateVertical);
 
 const deleteVertical = [validateID, deleteVerticalController]
 verticalRouter.delete("/delete-vertical/:id", deleteVertical);
-
-const getVerticalCount = [validateID, getVerticalCountController]
-verticalRouter.get("/get-vertical-count/:id", getVerticalCount);
 
 export default verticalRouter;
