@@ -33,6 +33,6 @@ router.use("/function/v1/", functionRouter);
 router.use("/user/v1/", userRouter);
 router.use("/tag/v1/", tagRouter);
 router.use("/site-statistics/v1/", siteStatisticsRouter);
-router.use("/like-idea/v1/", likeRouter);
+router.use("/like/v1/", likeRouter);
 
 export default router;
