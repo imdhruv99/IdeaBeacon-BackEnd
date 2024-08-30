@@ -30,7 +30,7 @@ export const existingLike = async (ideaId, userId) => {
   try {
     let idea = await Like.findOne({ ideaId });
 
-    if (idea.userIds.includes(userId)) {
+    if (idea && idea.userIds.includes(userId)) {
       logger.info(`Found existing like for ${ideaId} idea for ${userId} user.`);
       return userId;
     } else {
