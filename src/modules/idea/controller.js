@@ -1,5 +1,6 @@
 import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import * as ideaService from "./service.js";
+import * as likeService from "../like/service.js";
 import logger from "../../utils/logger.js";
 import { findByOid, findUserByID } from "../user/service.js";
 import { updateVerticalCount } from "../vertical/service.js";
@@ -38,9 +39,24 @@ export const createIdeaController = async (req, res) => {
 export const getAllIdeasController = async (req, res) => {
   try {
     const ideas = await ideaService.getAllIdeas();
+
+    const updatedIdeas = await Promise.all(
+      ideas.map(async (idea) => {
+        logger.info(`Fetching like count for idea with id: ${idea._id}`);
+
+        const likeCount = await likeService.getLikeCount(idea._id);
+        const ideaObj = idea.toObject ? idea.toObject() : idea;
+
+        return {
+          ...ideaObj,
+          likeCount,
+        };
+      })
+    );
+
     res
       .status(HttpStatusCodes.OK.code)
-      .json({ status: true, message: responseStrings.getAllIdeaSuccessMessage, data: ideas });
+      .json({ status: true, message: responseStrings.getAllIdeaSuccessMessage, data: updatedIdeas });
   } catch (error) {
     logger.error(`Error fetching ideas: ${error.message}`);
     res
@@ -53,22 +69,27 @@ export const getAllIdeasController = async (req, res) => {
 export const getIdeaByIdController = async (req, res) => {
   try {
     const idea = await ideaService.getIdeaById(req.params.id);
+
     if (!idea) {
       return res
         .status(HttpStatusCodes.NOT_FOUND.code)
         .json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
     const auditLog = await getAuditLogByIdeaId(req.params.id);
+
+    const isLiked = await likeService.existingLike(idea._id, req.params.userId);
     if (!auditLog) {
       return res
         .status(HttpStatusCodes.NOT_FOUND.code)
         .json({ status: false, message: responseStrings.auditLogNotFoundErrorMessage });
     }
 
+    const ideaObj = idea.toObject ? idea.toObject() : stage;
+
     let data = {
-      ideaData: idea,
-      ideaAuditLogData: auditLog
-    }
+      ideaData: { ...ideaObj, isLiked: isLiked ? true : false },
+      ideaAuditLogData: auditLog,
+    };
 
     res
       .status(HttpStatusCodes.OK.code)
@@ -157,9 +178,24 @@ export const filterIdeasController = async (req, res) => {
 
     // Fetch data from the "ideas" collection
     const ideas = await ideaService.filteredIdeas(query);
+
+    const updatedIdeas = await Promise.all(
+      ideas.map(async (idea) => {
+        logger.info(`Fetching like count for idea with id: ${idea._id}`);
+
+        const likeCount = await likeService.getLikeCount(idea._id);
+        const ideaObj = idea.toObject ? idea.toObject() : idea;
+
+        return {
+          ...ideaObj,
+          likeCount,
+        };
+      })
+    );
+
     res
       .status(HttpStatusCodes.OK.code)
-      .json({ status: true, message: responseStrings.filterIdeaSuccessMessage, data: ideas });
+      .json({ status: true, message: responseStrings.filterIdeaSuccessMessage, data: updatedIdeas });
   } catch (error) {
     logger.error(`Error fetching ideas: ${error.message}`);
     res
@@ -168,20 +204,23 @@ export const filterIdeasController = async (req, res) => {
   }
 };
 
-
 // update idea stage and count controller
 export const updateIdeaStageAndCountController = async (req, res) => {
   try {
     const userId = await findByOid(req.user.oid);
     const updatedIdea = await ideaService.updateIdeaStageAndCount(req.params.id, req.body.ideaStageId, userId);
     if (!updatedIdea) {
-      return res.status(HttpStatusCodes.NOT_FOUND.code).json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
+      return res
+        .status(HttpStatusCodes.NOT_FOUND.code)
+        .json({ status: false, message: responseStrings.ideaNotFoundErrorMessage });
     }
-    res.status(HttpStatusCodes.OK.code).json({ status: true, message: responseStrings.updateIdeaSuccessMessage, data: updatedIdea });
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.updateIdeaSuccessMessage, data: updatedIdea });
   } catch (error) {
     logger.error(`Error updating idea: ${error.message}`);
     res
       .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
       .json({ status: false, message: responseStrings.updateIdeaErrorMessage });
   }
-}
+};

@@ -9,6 +9,7 @@ import functionRouter from "../modules/ideaFunction/routes.js";
 import userRouter from "../modules/user/routes.js";
 import tagRouter from "../modules/tags/routes.js";
 import siteStatisticsRouter from "../modules/siteStatistics/routes.js";
+import likeRouter from "../modules/like/routes.js";
 
 const router = express.Router();
 
@@ -32,5 +33,6 @@ router.use("/function/v1/", functionRouter);
 router.use("/user/v1/", userRouter);
 router.use("/tag/v1/", tagRouter);
 router.use("/site-statistics/v1/", siteStatisticsRouter);
+router.use("/like/v1/", likeRouter);
 
 export default router;

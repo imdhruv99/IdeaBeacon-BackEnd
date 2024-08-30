@@ -42,7 +42,8 @@ export const responseStrings = {
   deleteIdeaSuccessMessage: "An Idea with given id has been deleted successfully.",
   deleteIdeaErrorMessage: "An error occurred while trying to delete the idea with given id. Please try again later.",
   filterIdeaSuccessMessage: "All Ideas according to applied filters has been fetched successfully.",
-  filterIdeaErrorMessage: "An error occurred while trying to fetch the ideas with given filters. Please try again later.",
+  filterIdeaErrorMessage:
+    "An error occurred while trying to fetch the ideas with given filters. Please try again later.",
 
   // Stage Messages
   createStageSuccessMessage: "The Stage has been successfully created.",
@@ -59,7 +60,6 @@ export const responseStrings = {
   getStageCountErrorMessage: "Unable to find count for given stage id.",
   getStageCountSuccessMessage: "Found count for given Stage id.",
 
-
   // Vertical Messages
   createVerticalSuccessMessage: "The Vertical has been successfully created.",
   createVerticalErrorMessage: "An error occurred while trying to create the vertical. Please try again later.",
@@ -67,14 +67,16 @@ export const responseStrings = {
   getAllVerticalErrorMessage: "An error occurred while trying to fetch all the verticals. Please try again later.",
   verticalNotFoundErrorMessage: "A Vertical with given id not Found.",
   getVerticalByIdSuccessMessage: "A Vertical with given id has been fetched successfully.",
-  getVerticalByIdErrorMessage: "An error occurred while trying to fetch the vertical with given id. Please try again later.",
+  getVerticalByIdErrorMessage:
+    "An error occurred while trying to fetch the vertical with given id. Please try again later.",
   updateVerticalSuccessMessage: "A Vertical with given id has been updated successfully.",
-  updateVerticalErrorMessage: "An error occurred while trying to update the Vertical with given id. Please try again later.",
+  updateVerticalErrorMessage:
+    "An error occurred while trying to update the Vertical with given id. Please try again later.",
   deleteVerticalSuccessMessage: "A Vertical with given id has been deleted successfully.",
-  deleteVerticalErrorMessage: "An error occurred while trying to delete the vertical with given id. Please try again later.",
+  deleteVerticalErrorMessage:
+    "An error occurred while trying to delete the vertical with given id. Please try again later.",
   getVerticalCountErrorMessage: "Unable to find count for given Vertical id.",
   getVerticalCountSuccessMessage: "Found count for given Vertical id.",
-
 
   // Function Messages
   createFunctionSuccessMessage: "The Function has been successfully created.",
@@ -83,11 +85,14 @@ export const responseStrings = {
   getAllFunctionErrorMessage: "An error occurred while trying to fetch all the functions. Please try again later.",
   functionNotFoundErrorMessage: "A Function with given id not Found.",
   getFunctionByIdSuccessMessage: "A Function with given id has been fetched successfully.",
-  getFunctionByIdErrorMessage: "An error occurred while trying to fetch the function with given id. Please try again later.",
+  getFunctionByIdErrorMessage:
+    "An error occurred while trying to fetch the function with given id. Please try again later.",
   updateFunctionSuccessMessage: "A Function with given id has been updated successfully.",
-  updateFunctionErrorMessage: "An error occurred while trying to update the function with given id. Please try again later.",
+  updateFunctionErrorMessage:
+    "An error occurred while trying to update the function with given id. Please try again later.",
   deleteFunctionSuccessMessage: "A Function with given id has been deleted successfully.",
-  deleteFunctionErrorMessage: "An error occurred while trying to delete the function with given id. Please try again later.",
+  deleteFunctionErrorMessage:
+    "An error occurred while trying to delete the function with given id. Please try again later.",
 
   // Audit Log Messages
   auditLogNotFoundErrorMessage: "Unable to find Audit log for given Idea Id.",
@@ -100,5 +105,12 @@ export const responseStrings = {
   incrementSiteVisitStatisticSuccessMessage: "Site visit count incremented successfully.",
   incrementSiteVisitStatisticErrorMessage: "Error occurred while incrementing site visit count.",
   getAllVisitStatisticSuccessMessage: "Site visit count has been fetched successfully.",
-  getAllVisitStatisticErrorMessage: "An error occurred while trying to fetch the site visit count. Please try again later.",
+  getAllVisitStatisticErrorMessage:
+    "An error occurred while trying to fetch the site visit count. Please try again later.",
+
+  //Like Unlike Idea Messages
+  likeIdeaSuccessMessage: "Idea liked successfully",
+  unlikeIdeaSuccessMessage: "Idea unlike successfully",
+  likeIdeaErrorMessage: "An error occurred while trying to like/unlike idea. Please try again later.",
+  likeIdeaNotFound: "Like not found",
 };
