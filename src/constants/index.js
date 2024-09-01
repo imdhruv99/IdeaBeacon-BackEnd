@@ -105,8 +105,7 @@ export const responseStrings = {
   incrementSiteVisitStatisticSuccessMessage: "Site visit count incremented successfully.",
   incrementSiteVisitStatisticErrorMessage: "Error occurred while incrementing site visit count.",
   getAllVisitStatisticSuccessMessage: "Site visit count has been fetched successfully.",
-  getAllVisitStatisticErrorMessage:
-    "An error occurred while trying to fetch the site visit count. Please try again later.",
+  getAllVisitStatisticErrorMessage: "An error occurred while trying to fetch the site visit count. Please try again later.",
 
   // Like Unlike Idea Messages
   likeIdeaSuccessMessage: "An Idea has been liked successfully.",
@@ -116,4 +115,20 @@ export const responseStrings = {
   // Comment Idea Messages
   commentIdeaSuccessMessage: "A comment has been created successfully.",
   commentIdeaErrorMessage: "An error occurred while trying to create the comment. Please try again later.",
+
+  // DemoDay Messages
+  createDemoDaySuccessMessage: "A demo day has been created successfully.",
+  createDemoDayErrorMessage: "An error occurred while trying to create the demo day. Please try again later.",
+  getAllDemoDaySuccessMessage: "All demo days has been fetched successfully.",
+  getAllDemoDayErrorMessage: "An error occurred while trying to fetch the demo days. Please try again later.",
+  demoDayNotFoundErrorMessage: "A demo day with given id not found.",
+  getDemoDayByIdSuccessMessage: "A demo day with given id has been fetched successfully.",
+  getDemoDayByIdErrorMessage: "An error occurred while trying to fetch the demo day with given id. Please try again later.",
+  currentDemoDayNotFoundErrorMessage: "An active demo day is not found.",
+  getCurrentDemoDaySuccessMessage: "A current demo day has been fetched successfully.",
+  getCurrentDemoDayErrorMessage: "An error occurred while trying to fetch the current demo day. Please try again later.",
+  updateDemoDaySuccessMessage: "A demo day with given id has been updated successfully.",
+  updateDemoDayErrorMessage: "An error occurred while trying to update the demo day with given id. Please try again later.",
+  deleteDemoDaySuccessMessage: "A demo day with given id has been deleted successfully.",
+  deleteDemoDayErrorMessage: "An error occurred while trying to delete the demo day with given id. Please try again later.",
 };

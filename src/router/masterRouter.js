@@ -11,6 +11,7 @@ import tagRouter from "../modules/tags/routes.js";
 import siteStatisticsRouter from "../modules/siteStatistics/routes.js";
 import likeRouter from "../modules/like/routes.js";
 import commentRouter from "../modules/comment/routes.js";
+import demoDayRouter from "../modules/demoDay/routes.js";
 
 const router = express.Router();
 
@@ -36,5 +37,6 @@ router.use("/tag/v1/", tagRouter);
 router.use("/site-statistics/v1/", siteStatisticsRouter);
 router.use("/like/v1/", likeRouter);
 router.use("/comment/v1/", commentRouter);
+router.use("/demo-day/v1/", demoDayRouter);
 
 export default router;
