@@ -108,9 +108,12 @@ export const responseStrings = {
   getAllVisitStatisticErrorMessage:
     "An error occurred while trying to fetch the site visit count. Please try again later.",
 
-  //Like Unlike Idea Messages
-  likeIdeaSuccessMessage: "Idea liked successfully",
-  unlikeIdeaSuccessMessage: "Idea unlike successfully",
+  // Like Unlike Idea Messages
+  likeIdeaSuccessMessage: "An Idea has been liked successfully.",
+  unlikeIdeaSuccessMessage: "An Idea has been unlike successfully.",
   likeIdeaErrorMessage: "An error occurred while trying to like/unlike idea. Please try again later.",
-  likeIdeaNotFound: "Like not found",
+
+  // Comment Idea Messages
+  commentIdeaSuccessMessage: "A comment has been created successfully.",
+  commentIdeaErrorMessage: "An error occurred while trying to create the comment. Please try again later.",
 };
