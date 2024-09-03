@@ -30,3 +30,23 @@ export const handleIdeaCommentController = async (req, res) => {
       .json({ status: false, message: responseStrings.commentIdeaErrorMessage });
   }
 };
+
+export const getIdeaCommentByIdeaIdController = async (req, res) => {
+  try {
+    const ideaId = req.params.id;
+    logger.info(`Handling comment for idea with ID: ${ideaId}`);
+
+    let ideaComment = await commentService.getCommentByIdeaId(ideaId);
+    logger.info(`Existing comments found for idea with ID: ${ideaId}.`);
+
+    res
+      .status(HttpStatusCodes.OK.code)
+      .json({ status: true, message: responseStrings.commentIdeaSuccessMessage, data: ideaComment });
+    logger.info(`Response sent with status 200 for idea with ID: ${ideaId}`);
+  } catch (error) {
+    logger.error(`Error fetching idea comment with ID: ${ideaId}: ${error.message}`);
+    res
+      .status(HttpStatusCodes.INTERNAL_SERVER_ERROR.code)
+      .json({ status: false, message: responseStrings.getIdeaCommentByIdeaIdErrorMessage });
+  }
+};
