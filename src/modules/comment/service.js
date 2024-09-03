@@ -89,7 +89,6 @@ export const addCommentToExistingIdea = async (ideaCommentDocument, newCommentDa
       logger.info(`New comment added to idea with ID: ${ideaCommentDocument.ideaId}`);
     }
 
-
     const updatedIdeaCommentDocument = await ideaCommentDocument.save();
     logger.info(`Successfully updated idea comments for idea with ID: ${ideaCommentDocument.ideaId}`);
     return updatedIdeaCommentDocument;
