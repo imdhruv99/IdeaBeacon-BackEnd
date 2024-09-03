@@ -4,13 +4,26 @@ import logger from "../../utils/logger.js";
 export const getCommentByIdeaId = async (ideaId) => {
   try {
     logger.info(`Fetching comments for idea with ID: ${ideaId}`);
-    const ideaCommentDocument = await Comment.findOne({ ideaId }).populate("comments");
+    const ideaCommentDocument = await Comment.findOne({ ideaId }).populate({
+      path: 'comments.userId',
+      select: 'name',
+    }).populate({
+      path: 'comments.replies.userId',
+      select: 'name',
+    }).populate({
+      path: 'comments',
+      populate: {
+        path: 'replies.userId',
+        select: 'name',
+      },
+    });
+
     if (ideaCommentDocument) {
       logger.info(`Comments found for idea with ID: ${ideaId}`);
       return ideaCommentDocument;
     }
     logger.info(`No comments found for idea with ID: ${ideaId}`);
-    return false;
+    return { comments: [] };
   } catch (err) {
     logger.error(`Error fetching idea in comment: ${err.message}`);
     throw err;
@@ -68,12 +81,14 @@ export const addCommentToExistingIdea = async (ideaCommentDocument, newCommentDa
       const newComment = {
         comment: newCommentData.comment,
         userId: newCommentData.userId,
+        ideaId: newCommentData.ideaId,
         replies: [],
       };
 
       ideaCommentDocument.comments = ideaCommentDocument.comments.concat(newComment);
       logger.info(`New comment added to idea with ID: ${ideaCommentDocument.ideaId}`);
     }
+
 
     const updatedIdeaCommentDocument = await ideaCommentDocument.save();
     logger.info(`Successfully updated idea comments for idea with ID: ${ideaCommentDocument.ideaId}`);

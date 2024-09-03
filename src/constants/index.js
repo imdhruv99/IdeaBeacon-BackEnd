@@ -114,9 +114,11 @@ export const responseStrings = {
   likeIdeaErrorMessage: "An error occurred while trying to like/unlike idea. Please try again later.",
 
   // Comment Idea Messages
-  commentIdeaSuccessMessage: "A comment has been created successfully.",
-  commentIdeaErrorMessage: "An error occurred while trying to create the comment. Please try again later.",
+  createCommentSuccessMessage: "A comment has been created successfully.",
+  createCommentErrorMessage: "An error occurred while trying to create the comment. Please try again later.",
   getIdeaCommentByIdeaIdErrorMessage: "An error occurred while trying to fetch the comment. Please try again later.",
+  getCommentByIdSuccessMessage: "All comments with given idea id has been fetched successfully.",
+  getCommentByIdErrorMessage: "An error occurred while trying to fetch the comments with given idea id. Please try again later.",
 
   // DemoDay Messages
   createDemoDaySuccessMessage: "A demo day has been created successfully.",
