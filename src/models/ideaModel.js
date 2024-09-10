@@ -8,6 +8,7 @@ const ideaSchema = new mongoose.Schema({
     advantage: { type: String, required: true },
     proposedSolution: { type: String, required: true },
     existingSolution: { type: String, required: true },
+    links: [{ type: String }],
     functionId: { type: mongoose.Schema.ObjectId, required: true, ref: 'Function' },
     coauthors: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
     tags: [{ type: mongoose.Schema.ObjectId, ref: 'Tag' }],
