@@ -118,12 +118,17 @@ export const getCommentCount = async (ideaId) => {
   try {
     let idea = await Comment.findOne({ ideaId });
     if (idea) {
-      return idea.comments.length;
+      let totalCount = idea.comments.length;
+      idea.comments.forEach(comment => {
+        totalCount += comment.replies.length;
+      });
+
+      return totalCount;
     } else {
       return 0;
     }
   } catch (err) {
-    logger.error(`Error unlike idea: ${err.message}`);
+    logger.error(`Error getting comment count: ${err.message}`);
     throw err;
   }
 };
