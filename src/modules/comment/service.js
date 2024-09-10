@@ -113,3 +113,17 @@ export const addCommentToExistingIdea = async (ideaCommentDocument, newCommentDa
     throw err;
   }
 };
+
+export const getCommentCount = async (ideaId) => {
+  try {
+    let idea = await Comment.findOne({ ideaId });
+    if (idea) {
+      return idea.comments.length;
+    } else {
+      return 0;
+    }
+  } catch (err) {
+    logger.error(`Error unlike idea: ${err.message}`);
+    throw err;
+  }
+};

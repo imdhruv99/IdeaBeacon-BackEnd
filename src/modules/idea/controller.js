@@ -6,6 +6,7 @@ import { findByOid, findUserByID } from "../user/service.js";
 import { updateVerticalCount } from "../vertical/service.js";
 import { findByName } from "../stage/service.js";
 import { getAuditLogByIdeaId } from "../auditLog/service.js";
+import { getCommentCount } from "../comment/service.js";
 
 // Create Idea
 export const createIdeaController = async (req, res) => {
@@ -45,11 +46,13 @@ export const getAllIdeasController = async (req, res) => {
         logger.info(`Fetching like count for idea with id: ${idea._id}`);
 
         const likeCount = await likeService.getLikeCount(idea._id);
+        const commentCount = await getCommentCount(idea._id);
         const ideaObj = idea.toObject ? idea.toObject() : idea;
 
         return {
           ...ideaObj,
           likeCount,
+          commentCount,
         };
       })
     );
@@ -184,11 +187,13 @@ export const filterIdeasController = async (req, res) => {
         logger.info(`Fetching like count for idea with id: ${idea._id}`);
 
         const likeCount = await likeService.getLikeCount(idea._id);
+        const commentCount = await getCommentCount(idea._id);
         const ideaObj = idea.toObject ? idea.toObject() : idea;
 
         return {
           ...ideaObj,
           likeCount,
+          commentCount,
         };
       })
     );
