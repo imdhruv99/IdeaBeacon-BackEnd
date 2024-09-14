@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { HttpStatusCodes, responseStrings } from "../../constants/index.js";
 import logger from "../../utils/logger.js";
 import { createUser, findByOid, getAllUsers } from "./service.js";
+import { findRoleIdByName } from "../role/service.js";
 
 dotenv.config();
 
@@ -10,18 +11,21 @@ export const createUserController = async (req, res) => {
   try {
     let userId = req.body.oid;
 
+    const roleName = "ROLE_USER";
+    const role = await findRoleIdByName(roleName);
+
     let userData = {
       ...req.body,
-      role: process.env.ROLE,
+      role: role._id,
     };
-        
+
     const existingUser = await findByOid(userId);
 
     if (existingUser) {
       logger.info(`User creation failed: User already exists for userId ${userId}`);
       return res
         .status(HttpStatusCodes.OK.code)
-        .json({ status: false, message: responseStrings.userAlreadyExistErrorMessage, data: existingUser});
+        .json({ status: false, message: responseStrings.userAlreadyExistErrorMessage, data: existingUser });
     } else {
       const newUser = await createUser(userData);
       logger.info(`User created successfully: ${JSON.stringify(newUser)}`);
