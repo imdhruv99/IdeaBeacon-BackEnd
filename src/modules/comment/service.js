@@ -44,8 +44,9 @@ export const createCommentForIdea = async (commentData) => {
       ],
     };
 
-    const newIdeaCommentDocument = await Comment.create(newIdeaCommentData);
+    await Comment.create(newIdeaCommentData);
     logger.info(`Successfully created new comment for idea with ID: ${commentData.ideaId}`);
+    const newIdeaCommentDocument = await getCommentByIdeaId(commentData.ideaId);
     return newIdeaCommentDocument;
   } catch (err) {
     logger.error(`Error creating comment: ${err.message}`);
