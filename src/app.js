@@ -4,7 +4,7 @@ import logger from "./utils/logger.js";
 import cors from "cors";
 import router from "./router/masterRouter.js";
 import morgan from "morgan";
-import initializeRoles from "./config/appConfig.js";
+import { initializeRoles } from "./config/appConfig.js";
 
 const app = express();
 app.use(cors());
