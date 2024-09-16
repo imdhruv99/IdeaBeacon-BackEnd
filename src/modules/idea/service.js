@@ -134,7 +134,7 @@ export const filteredIdeas = async (query) => {
   try {
     return await Idea.find(query).populate(
       "ideaVerticalId ideaStageId functionId createdBy updatedBy coauthors tags demoDayId"
-    );
+    ).sort({ createdAt: -1 });
   } catch (err) {
     logger.error(`Error fetching filtered ideas: ${err}`);
     throw err;
