@@ -1,17 +1,12 @@
 import { Router } from "express";
 import {
-    createDemoDayController,
-    getAllDemoDaysController,
-    getCurrentDemoDayController,
-    getDemoDayByIdController,
-    updateDemoDayController,
-    deleteDemoDayController,
+  createDemoDayController,
+  getAllDemoDaysController,
+  getDemoDayByIdController,
+  updateDemoDayController,
+  deleteDemoDayController,
 } from "./controller.js";
-import {
-    validateCreateDemoDay,
-    validateDemoDayID,
-    validateUpdateDemoDay,
-} from "./middleware.js";
+import { validateCreateDemoDay, validateDemoDayID, validateUpdateDemoDay } from "./middleware.js";
 
 const demoDayRouter = Router();
 
@@ -22,10 +17,6 @@ demoDayRouter.post("/create-demo-day", createDemoDay);
 // Get All Demo Days
 const getAllDemoDays = [getAllDemoDaysController];
 demoDayRouter.get("/get-all-demo-day", getAllDemoDays);
-
-// Get Current Demo Day
-const getCurrentDemoDay = [getCurrentDemoDayController];
-demoDayRouter.get("/get-current-demo-day", getCurrentDemoDay);
 
 // Get Demo Day By ID
 const getDemoDayById = [validateDemoDayID, getDemoDayByIdController];

@@ -16,7 +16,7 @@ export const createFunction = async (functionData) => {
 export const getAllFunctions = async () => {
   logger.info("Fetching all functions");
   try {
-    return await Function.find().populate("functionName createdBy updatedBy");
+    return await Function.find({ isActive: true }).populate("createdBy updatedBy");
   } catch (err) {
     logger.error(`Error fetching functions: ${err}`);
     throw err;
@@ -27,7 +27,7 @@ export const getAllFunctions = async () => {
 export const getFunctionById = async (id) => {
   logger.info(`Fetching function with id: ${id}`);
   try {
-    return await Function.findById(id).populate("functionName createdBy updatedBy");
+    return await Function.findOne({ _id: id, isActive: true }).populate("createdBy updatedBy");
   } catch (err) {
     logger.error(`Error fetching function: ${err}`);
     throw err;
@@ -38,9 +38,7 @@ export const getFunctionById = async (id) => {
 export const updateFunction = async (id, functionData) => {
   logger.info(`Updating function with id: ${id}`);
   try {
-    return await Function.findByIdAndUpdate(id, functionData, { new: true }).populate(
-      "functionName createdBy updatedBy"
-    );
+    return await Function.findByIdAndUpdate(id, functionData, { new: true }).populate("createdBy updatedBy");
   } catch (err) {
     logger.error(`Error updating function: ${err}`);
     throw err;
@@ -48,10 +46,21 @@ export const updateFunction = async (id, functionData) => {
 };
 
 // Delete Function
-export const deleteFunction = async (id) => {
+export const deleteFunction = async (id, userId) => {
   logger.info(`Deleting function with id: ${id}`);
   try {
-    return await Function.findByIdAndDelete(id);
+    const result = await Function.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isActive: false,
+          deletedBy: userId,
+          deletedAT: new Date(),
+        },
+      },
+      { new: true }
+    );
+    return result;
   } catch (err) {
     logger.error(`Error deleting function: ${err}`);
     throw err;
