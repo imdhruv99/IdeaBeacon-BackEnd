@@ -17,7 +17,7 @@ export const createVertical = async (verticalData) => {
 export const getAllVerticals = async () => {
   logger.info("Fetching all verticals");
   try {
-    return await Vertical.find().populate("verticalName createdBy updatedBy");
+    return await Vertical.find({ isActive: true }).populate("createdBy updatedBy");
   } catch (err) {
     logger.error(`Error fetching verticals: ${err}`);
     throw err;
@@ -28,7 +28,7 @@ export const getAllVerticals = async () => {
 export const getVerticalById = async (id) => {
   logger.info(`Fetching vertical with id: ${id}`);
   try {
-    return await Vertical.findById(id).populate("verticalName createdBy updatedBy");
+    return await Vertical.findOne({ _id: id, isActive: true }).populate("createdBy updatedBy");
   } catch (err) {
     logger.error(`Error fetching vertical: ${err}`);
     throw err;
@@ -39,7 +39,7 @@ export const getVerticalById = async (id) => {
 export const updateVertical = async (id, ideaData) => {
   logger.info(`Updating vertical with id: ${id}`);
   try {
-    return await Vertical.findByIdAndUpdate(id, ideaData, { new: true }).populate("verticalName createdBy updatedBy");
+    return await Vertical.findByIdAndUpdate(id, ideaData, { new: true }).populate("createdBy updatedBy");
   } catch (err) {
     logger.error(`Error updating Vertical: ${err}`);
     throw err;
@@ -47,10 +47,21 @@ export const updateVertical = async (id, ideaData) => {
 };
 
 // Delete Vertical
-export const deleteVertical = async (id) => {
+export const deleteVertical = async (id, userId) => {
   logger.info(`Deleting vertical with id: ${id}`);
   try {
-    return await Vertical.findByIdAndDelete(id);
+    const result = await Vertical.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isActive: false,
+          deletedBy: userId,
+          deletedAT: new Date(),
+        },
+      },
+      { new: true }
+    );
+    return result;
   } catch (err) {
     logger.error(`Error deleting vertical: ${err}`);
     throw err;
@@ -61,16 +72,12 @@ export const deleteVertical = async (id) => {
 export const updateVerticalCount = async (id) => {
   logger.info(`Updating vertical count with id: ${id}`);
   try {
-    await IdeaVerticalCount.findOneAndUpdate(
-      { vertical: id },
-      { $inc: { count: 1 } },
-      { new: true, upsert: true }
-    );
+    await IdeaVerticalCount.findOneAndUpdate({ vertical: id }, { $inc: { count: 1 } }, { new: true, upsert: true });
   } catch (err) {
     logger.error(`Error updating vertical counter: ${err}`);
     throw err;
   }
-}
+};
 
 // get vertical counter by id
 export const getVerticalCount = async (id) => {
